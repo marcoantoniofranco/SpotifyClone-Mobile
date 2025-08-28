@@ -26,7 +26,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.spotifyclone.ui.theme.SpotifyCloneTheme
 
 @Composable
 fun Cabecalho(modifier: Modifier = Modifier) {
@@ -216,7 +215,5 @@ fun Cabecalho(modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewTelaSearch() {
-    SpotifyCloneTheme {
-        Cabecalho()
-    }
+    Cabecalho()
 }
