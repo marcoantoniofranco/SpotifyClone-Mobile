@@ -274,24 +274,6 @@ fun ListaRecentes() {
 }
 
 
-@Composable
-fun BotaoMenu(texto: String, icone: ImageVector, selecionado: Boolean){
-    TextButton(onClick = { }){
-        Column(horizontalAlignment = Alignment.CenterHorizontally){
-            val cor = if (selecionado) Color.White else Color.Gray
-
-            Icon(
-                imageVector = icone,
-                contentDescription = texto,
-                tint = cor
-            )
-            Text(
-                text = texto,
-                color = cor
-            )
-        }
-    }
-}
 
 @Preview(showBackground = true)
 @Composable
@@ -304,36 +286,8 @@ fun PreviewMenuFinal() {
 @Composable
 fun MenuFinalContent() {
     Scaffold(containerColor = Color.Black, bottomBar = {
-        Surface(color = Color.Black) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceAround,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                BotaoMenu(
-                    texto = "Início",
-                    icone = Icons.Default.Home,
-                    selecionado = false
-                )
-                BotaoMenu(
-                    texto = "Buscar",
-                    icone = Icons.Default.Search,
-                    selecionado = false
-                )
-                BotaoMenu(
-                    texto = "Sua Biblioteca",
-                    icone = Icons.Default.Menu,
-                    selecionado = true
-                )
-                BotaoMenu(
-                    texto = "Criar",
-                    icone = Icons.Default.Add,
-                    selecionado = false
-                )
-            }
-        }
-    }
-    ) { paddingValues ->
+        MenuInferior(telaAtual = "biblioteca")
+    }) { paddingValues ->
         Column(
             modifier = Modifier.padding(paddingValues)
         ) {
