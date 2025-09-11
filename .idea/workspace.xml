@@ -9,13 +9,13 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0cb6a2fb-526f-43dc-aa97-ff737a0d541e" name="Changes" comment="Fix: Correção na declaração das funções com o mesmo nome">
+    <list default="true" id="0cb6a2fb-526f-43dc-aa97-ff737a0d541e" name="Changes" comment="Feat: Melhoria no menu inferior">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/TelaHome.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/SharedComponents.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/SharedComponents.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/TelaBiblioteca.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/TelaBiblioteca.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/TelaSearch.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/TelaSearch.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/libs.versions.toml" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/libs.versions.toml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -167,11 +167,39 @@
       <option name="project" value="LOCAL" />
       <updated>1756399471340</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Feat: Melhoria no menu inferior">
+      <option name="closed" value="true" />
+      <created>1757594846282</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1757594846282</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Feat: Melhoria no menu inferior">
+      <option name="closed" value="true" />
+      <created>1757594868812</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1757594868812</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Fix: Correção na declaração das funções com o mesmo nome" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix: Correção na declaração das funções com o mesmo nome" />
+    <MESSAGE value="Feat: Melhoria no menu inferior" />
+    <option name="LAST_COMMIT_MESSAGE" value="Feat: Melhoria no menu inferior" />
   </component>
 </project>

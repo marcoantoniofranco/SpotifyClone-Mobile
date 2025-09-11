@@ -18,7 +18,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             SpotifyCloneTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    TelaSearch(modifier = Modifier.padding(innerPadding))
+                    TelaHome(modifier = Modifier.padding(innerPadding))
                 }
             }
         }
@@ -27,6 +27,6 @@ class MainActivity : ComponentActivity() {
 
 @Preview(showBackground = true)
 @Composable
-fun TelaSearchPreview() {
-    TelaSearch()
+fun TelaHomePreview() {
+    TelaHome()
 }

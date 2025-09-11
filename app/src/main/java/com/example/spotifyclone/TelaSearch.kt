@@ -8,8 +8,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
@@ -17,7 +15,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -39,36 +36,7 @@ fun TelaSearch(modifier: Modifier = Modifier) {
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
-        Surface(
-            modifier = Modifier.fillMaxWidth(),
-            color = Color.Black,
-            shadowElevation = 4.dp
-        ) {
-            Row(
-                modifier = Modifier.padding(10.dp),
-                horizontalArrangement = Arrangement.SpaceEvenly,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                    imageVector = Icons.Default.AccountCircle,
-                    contentDescription = "",
-                    tint = Color.White,
-                    modifier = Modifier.size(40.dp)
-                )
-                Text(
-                    text = "Search",
-                    color = Color.White,
-                    fontSize = 25.sp,
-                    fontWeight = FontWeight.Bold,
-                )
-                Icon(
-                    imageVector = Icons.Default.Notifications,
-                    contentDescription = "",
-                    tint = Color.White,
-                    modifier = Modifier.size(40.dp)
-                )
-            }
-        }
+        CabecalhoSearch()
 
         Surface(
             modifier = Modifier.fillMaxWidth(),

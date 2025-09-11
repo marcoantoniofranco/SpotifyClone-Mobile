@@ -17,14 +17,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
@@ -32,7 +28,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -62,7 +57,7 @@ fun Biblioteca(){
             .fillMaxWidth()
     ){
         LazyColumn{
-            item{ CabecalhoBiblioteca() }
+            item { CabecalhoBiblioteca() }
             item { Opcoes() }
             item{ Recentes() }
             item{ ListaRecentes() }
@@ -71,50 +66,6 @@ fun Biblioteca(){
 
 }
 
-@Composable
-fun CabecalhoBiblioteca(){
-
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = Modifier
-            .fillMaxWidth()
-    ){
-        Icon(
-            imageVector = Icons.Default.AccountCircle,
-            contentDescription = "",
-            modifier = Modifier.size(40.dp),
-            tint = Color.Green
-        )
-
-        Spacer(modifier = Modifier.width(5.dp))
-
-        Column(horizontalAlignment = Alignment.Start){
-            Text("Sua Biblioteca", style = MaterialTheme.typography.headlineLarge, color = Color.White)
-        }
-        Spacer(modifier = Modifier.width(85.dp))
-
-        Column(horizontalAlignment = Alignment.End){
-            Icon(
-                imageVector = Icons.Default.Search,
-                contentDescription = "",
-                modifier = Modifier
-                    .size(30.dp),
-                tint = Color.DarkGray
-            )
-        }
-        Column(horizontalAlignment = Alignment.End){
-            Icon(
-                imageVector = Icons.Default.Add,
-                contentDescription = "",
-                modifier = Modifier
-                    .size(30.dp),
-                tint = Color.DarkGray
-            )
-        }
-    }
-
-}
 
 @Composable
 fun Opcoes(){
