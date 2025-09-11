@@ -83,23 +83,22 @@ fun MenuInferior(telaAtual: String = "biblioteca") {
 }
 
 @Composable
-fun CabecalhoComPerfil() {
+fun CabecalhoCriar() {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
-        // Foto do perfil
         Surface(
             modifier = Modifier.size(40.dp),
             shape = CircleShape,
-            color = Color.Gray
+            color = Color.Green
         ) {
             Icon(
                 imageVector = Icons.Default.Person,
                 contentDescription = "Perfil",
-                tint = Color.White,
+                tint = Color.Black,
                 modifier = Modifier.padding(8.dp)
             )
         }
