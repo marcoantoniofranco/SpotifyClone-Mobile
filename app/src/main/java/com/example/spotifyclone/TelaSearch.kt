@@ -15,20 +15,33 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 
 @Composable
-fun TelaSearch(modifier: Modifier = Modifier) {
+fun TelaSearch(
+    navController: NavHostController? = null,
+    modifier: Modifier = Modifier
+) {
+    val searchText = remember { mutableStateOf("") }
+    
     Scaffold(
         modifier = modifier.fillMaxSize(),
         containerColor = Color.Black,
         bottomBar = {
-            MenuInferior(telaAtual = "buscar")
+            MenuInferior(
+                telaAtual = "search",
+                onNavigate = { destino -> 
+                    navController?.navigate(destino)
+                }
+            )
         }
     ) { paddingValues ->
         Column(
@@ -56,8 +69,8 @@ fun TelaSearch(modifier: Modifier = Modifier) {
                             modifier = Modifier.size(30.dp)
                         )
                     },
-                    value = "",
-                    onValueChange = {},
+                    value = searchText.value,
+                    onValueChange = { searchText.value = it },
                     modifier = Modifier.fillMaxWidth(),
                     placeholder = { Text(text = "What do you want to play ?") },
                 )

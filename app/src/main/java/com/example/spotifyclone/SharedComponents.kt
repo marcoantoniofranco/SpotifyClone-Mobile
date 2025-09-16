@@ -73,7 +73,10 @@ fun BotaoMenu(texto: String, icone: ImageVector, selecionado: Boolean, onClick: 
 }
 
 @Composable
-fun MenuInferior(telaAtual: String = "biblioteca") {
+fun MenuInferior(
+    telaAtual: String = "biblioteca",
+    onNavigate: (String) -> Unit = {}
+) {
     Surface(color = Color.Black) {
         Row(
             modifier = Modifier
@@ -81,25 +84,33 @@ fun MenuInferior(telaAtual: String = "biblioteca") {
                 .padding(8.dp),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            BotaoMenu(
+            BotaoMenuPersonalizavel(
                 texto = "Início",
                 icone = Icons.Default.Home,
-                selecionado = telaAtual == "home"
+                selecionado = telaAtual == "home",
+                corSelecionado = Color(0xFF1DB954), // Verde Spotify
+                onClick = { onNavigate("home") }
             )
-            BotaoMenu(
+            BotaoMenuPersonalizavel(
                 texto = "Buscar",
                 icone = Icons.Default.Search,
-                selecionado = telaAtual == "buscar"
+                selecionado = telaAtual == "search",
+                corSelecionado = Color(0xFF1DB954), // Verde Spotify
+                onClick = { onNavigate("search") }
             )
-            BotaoMenu(
+            BotaoMenuPersonalizavel(
                 texto = "Sua Biblioteca",
                 icone = Icons.Default.Menu,
-                selecionado = telaAtual == "biblioteca"
+                selecionado = telaAtual == "biblioteca",
+                corSelecionado = Color(0xFF1DB954), // Verde Spotify
+                onClick = { onNavigate("biblioteca") }
             )
-            BotaoMenu(
+            BotaoMenuPersonalizavel(
                 texto = "Criar",
                 icone = Icons.Default.Add,
-                selecionado = telaAtual == "criar"
+                selecionado = telaAtual == "criar",
+                corSelecionado = Color(0xFF1DB954), // Verde Spotify
+                onClick = { onNavigate("criar") }
             )
         }
     }
@@ -175,23 +186,27 @@ fun CabecalhoPersonalizavel(
     }
 }
 
-// Funções de conveniência para manter compatibilidade
+// Funções de conveniência para manter compatibilidade - MELHORADAS
 @Composable
 fun CabecalhoComPerfil() {
-    CabecalhoPersonalizavel()
+    CabecalhoPersonalizavel(
+        corPerfil = Color(0xFF1DB954), // Verde Spotify
+        tamanhoPerfil = 42.dp
+    )
 }
 
 @Composable
 fun CabecalhoBiblioteca() {
     CabecalhoPersonalizavel(
         titulo = "Sua Biblioteca",
-        corPerfil = Color.Green,
+        corPerfil = Color(0xFF1DB954), // Verde Spotify
         corTintePerfil = Color.Black,
+        tamanhoPerfil = 42.dp,
         tamanhoTitulo = 28.sp,
         mostrarIconesDireita = true,
         iconesDireita = listOf(
-            Icons.Default.Search to Color.DarkGray,
-            Icons.Default.Add to Color.DarkGray
+            Icons.Default.Search to Color.White,
+            Icons.Default.Add to Color.White
         )
     )
 }
@@ -199,7 +214,24 @@ fun CabecalhoBiblioteca() {
 @Composable
 fun CabecalhoSearch() {
     CabecalhoPersonalizavel(
-        titulo = "Search"
+        titulo = "Search",
+        corPerfil = Color(0xFF1DB954), // Verde Spotify
+        tamanhoPerfil = 42.dp,
+        tamanhoTitulo = 26.sp,
+        mostrarIconesDireita = true,
+        iconesDireita = listOf(
+            Icons.Default.Notifications to Color.White
+        )
+    )
+}
+
+@Composable
+fun CabecalhoCriar() {
+    CabecalhoPersonalizavel(
+        titulo = "Criar",
+        corPerfil = Color(0xFF1DB954), // Verde Spotify
+        tamanhoPerfil = 42.dp,
+        tamanhoTitulo = 26.sp
     )
 }
 
@@ -211,9 +243,9 @@ fun MenuSuperior(opcaoSelecionada: String = "All") {
             .padding(horizontal = 16.dp, vertical = 8.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        BotaoMenuSuperior("All", opcaoSelecionada == "All")
-        BotaoMenuSuperior("Music", opcaoSelecionada == "Music")
-        BotaoMenuSuperior("Podcasts", opcaoSelecionada == "Podcasts")
+        BotaoMenuSuperiorPersonalizavel("All", opcaoSelecionada == "All")
+        BotaoMenuSuperiorPersonalizavel("Music", opcaoSelecionada == "Music")
+        BotaoMenuSuperiorPersonalizavel("Podcasts", opcaoSelecionada == "Podcasts")
     }
 }
 

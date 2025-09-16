@@ -1,5 +1,6 @@
 package com.example.spotifyclone
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -21,6 +23,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,14 +32,26 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 
 @Composable
-fun TelaHome(modifier: Modifier = Modifier) {
+fun TelaHome(
+    navController: NavHostController? = null,
+    modifier: Modifier = Modifier
+) {
+    // Simulando dados do "backend"
+    val musicasRecentes = remember { mutableStateOf(MusicRepository.getMusicasRecentes()) }
+    
     Scaffold(
         modifier = modifier.fillMaxSize(),
         containerColor = Color.Black,
         bottomBar = {
-            MenuInferior(telaAtual = "home")
+            MenuInferior(
+                telaAtual = "home",
+                onNavigate = { destino -> 
+                    navController?.navigate(destino)
+                }
+            )
         }
     ) { paddingValues ->
         LazyColumn(
@@ -46,7 +62,7 @@ fun TelaHome(modifier: Modifier = Modifier) {
             item { CabecalhoComPerfil() }
             item { MenuSuperior(opcaoSelecionada = "All") }
             item { Spacer(modifier = Modifier.height(16.dp)) }
-            item { GridMusicasRecentes() }
+            item { GridMusicasRecentes(musicasRecentes.value) }
             item { Spacer(modifier = Modifier.height(24.dp)) }
             item { NovoLancamento() }
         }
@@ -54,46 +70,29 @@ fun TelaHome(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun GridMusicasRecentes() {
+fun GridMusicasRecentes(musicas: List<Musica>) {
     Column(
         modifier = Modifier.padding(horizontal = 16.dp)
     ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            CardMusicaRecente("OK Computer", Color(0xFF4A90E2), modifier = Modifier.weight(1f))
-            CardMusicaRecente("Blur: the best of", Color(0xFF8E44AD), modifier = Modifier.weight(1f))
-        }
-        
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            CardMusicaRecente("Govinda", Color(0xFFE67E22), modifier = Modifier.weight(1f))
-            CardMusicaRecente("Playlist Viper", Color(0xFF27AE60), modifier = Modifier.weight(1f))
-        }
-        
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            CardMusicaRecente("The last Dinner Party", Color(0xFFE74C3C), modifier = Modifier.weight(1f))
-            CardMusicaRecente("Entering the 3 Body Problem word", Color(0xFF9B59B6), modifier = Modifier.weight(1f))
-        }
-        
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            CardMusicaRecente("The Cure", Color(0xFFF39C12), modifier = Modifier.weight(1f))
-            CardMusicaRecente("Guts (spilled)", Color(0xFF34495E), modifier = Modifier.weight(1f))
+        // Usando dados reais do backend
+        musicas.chunked(2).forEach { par ->
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                par.forEach { musica ->
+                    CardMusicaRecente(
+                        titulo = musica.titulo, 
+                        cor = Color(0xFF4A90E2), // Cor padrão, poderia vir do backend também
+                        modifier = Modifier.weight(1f)
+                    )
+                }
+                // Se só tem uma música no par, adiciona espaço
+                if (par.size == 1) {
+                    Spacer(modifier = Modifier.weight(1f))
+                }
+            }
+            Spacer(modifier = Modifier.height(8.dp))
         }
     }
 }

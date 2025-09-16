@@ -36,6 +36,32 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.spotifyclone.ui.theme.SpotifyCloneTheme
+import androidx.navigation.NavHostController
+
+@Composable
+fun TelaBiblioteca(
+    navController: NavHostController? = null,
+    modifier: Modifier = Modifier
+) {
+    Scaffold(
+        modifier = modifier,
+        containerColor = Color.Black, 
+        bottomBar = {
+            MenuInferior(
+                telaAtual = "biblioteca",
+                onNavigate = { destino -> 
+                    navController?.navigate(destino)
+                }
+            )
+        }
+    ) { paddingValues ->
+        Column(
+            modifier = Modifier.padding(paddingValues)
+        ) {
+            Biblioteca()
+        }
+    }
+}
 
 class MainActivity2 : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -247,3 +273,8 @@ fun MenuFinalContent() {
     }
 }
 
+@Preview(showBackground = true)
+@Composable
+fun PreviewTelaBiblioteca() {
+    Biblioteca()
+}
