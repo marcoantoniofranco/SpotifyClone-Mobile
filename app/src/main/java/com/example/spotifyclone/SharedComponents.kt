@@ -32,36 +32,59 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun BotaoMenu(texto: String, icone: ImageVector, selecionado: Boolean, onClick: () -> Unit = {}){
-    TextButton(onClick = onClick){
-        Column(horizontalAlignment = Alignment.CenterHorizontally){
-            val cor = if (selecionado) Color.White else Color.Gray
+fun BotaoMenuPersonalizavel(
+    texto: String, 
+    icone: ImageVector, 
+    selecionado: Boolean, 
+    corSelecionado: Color = Color.White,
+    corNaoSelecionado: Color = Color.Gray,
+    tamanhoIcone: androidx.compose.ui.unit.Dp = 24.dp,
+    tamanhoTexto: androidx.compose.ui.unit.TextUnit = 12.sp,
+    onClick: () -> Unit = {}
+) {
+    TextButton(onClick = onClick) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            val cor = if (selecionado) corSelecionado else corNaoSelecionado
 
             Icon(
                 imageVector = icone,
                 contentDescription = texto,
-                tint = cor
+                tint = cor,
+                modifier = Modifier.size(tamanhoIcone)
             )
             Text(
                 text = texto,
-                color = cor
+                color = cor,
+                fontSize = tamanhoTexto
             )
         }
     }
+}
+
+// Função de conveniência para manter compatibilidade
+@Composable
+fun BotaoMenu(texto: String, icone: ImageVector, selecionado: Boolean, onClick: () -> Unit = {}) {
+    BotaoMenuPersonalizavel(
+        texto = texto,
+        icone = icone,
+        selecionado = selecionado,
+        onClick = onClick
+    )
 }
 
 @Composable
 fun MenuInferior(telaAtual: String = "biblioteca") {
     Surface(color = Color.Black) {
         Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceAround,
-            verticalAlignment = Alignment.CenterVertically
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
+            horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             BotaoMenu(
                 texto = "Início",
                 icone = Icons.Default.Home,
-                selecionado = telaAtual == "inicio"
+                selecionado = telaAtual == "home"
             )
             BotaoMenu(
                 texto = "Buscar",
@@ -83,118 +106,101 @@ fun MenuInferior(telaAtual: String = "biblioteca") {
 }
 
 @Composable
-fun CabecalhoComPerfil() {
+fun CabecalhoPersonalizavel(
+    titulo: String? = null,
+    corPerfil: Color = Color.Gray,
+    corTintePerfil: Color = Color.White,
+    tamanhoPerfil: androidx.compose.ui.unit.Dp = 40.dp,
+    mostrarIconesDireita: Boolean = false,
+    iconesDireita: List<Pair<ImageVector, Color>> = emptyList(),
+    tamanhoTitulo: androidx.compose.ui.unit.TextUnit = 25.sp,
+    corTitulo: Color = Color.White
+) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp)
-    ) {
-        // Foto do perfil
-        Surface(
-            modifier = Modifier.size(40.dp),
-            shape = CircleShape,
-            color = Color.Gray
-        ) {
-            Icon(
-                imageVector = Icons.Default.Person,
-                contentDescription = "Perfil",
-                tint = Color.White,
-                modifier = Modifier.padding(8.dp)
-            )
-        }
-    }
-}
-
-@Composable
-fun CabecalhoBiblioteca() {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween,
+        horizontalArrangement = if (titulo != null || mostrarIconesDireita) Arrangement.SpaceBetween else Arrangement.Start,
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            // Foto do perfil verde
+            // Foto do perfil
             Surface(
-                modifier = Modifier.size(40.dp),
+                modifier = Modifier.size(tamanhoPerfil),
                 shape = CircleShape,
-                color = Color.Green
+                color = corPerfil
             ) {
                 Icon(
                     imageVector = Icons.Default.Person,
                     contentDescription = "Perfil",
-                    tint = Color.Black,
+                    tint = corTintePerfil,
                     modifier = Modifier.padding(8.dp)
                 )
             }
             
-            androidx.compose.foundation.layout.Spacer(modifier = Modifier.width(12.dp))
-            
-            Text(
-                text = "Sua Biblioteca",
-                fontSize = 28.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.White
-            )
+            if (titulo != null) {
+                androidx.compose.foundation.layout.Spacer(modifier = Modifier.width(12.dp))
+                
+                Text(
+                    text = titulo,
+                    fontSize = tamanhoTitulo,
+                    fontWeight = FontWeight.Bold,
+                    color = corTitulo
+                )
+            }
         }
         
-        Row {
+        if (mostrarIconesDireita && iconesDireita.isNotEmpty()) {
+            Row {
+                iconesDireita.forEachIndexed { index, (icone, cor) ->
+                    if (index > 0) {
+                        androidx.compose.foundation.layout.Spacer(modifier = Modifier.width(16.dp))
+                    }
+                    Icon(
+                        imageVector = icone,
+                        contentDescription = "",
+                        modifier = Modifier.size(30.dp),
+                        tint = cor
+                    )
+                }
+            }
+        } else if (titulo == "Search") {
             Icon(
-                imageVector = Icons.Default.Search,
-                contentDescription = "Buscar",
-                modifier = Modifier.size(30.dp),
-                tint = Color.DarkGray
-            )
-            androidx.compose.foundation.layout.Spacer(modifier = Modifier.width(16.dp))
-            Icon(
-                imageVector = Icons.Default.Add,
-                contentDescription = "Adicionar",
-                modifier = Modifier.size(30.dp),
-                tint = Color.DarkGray
+                imageVector = Icons.Default.Notifications,
+                contentDescription = "Notificações",
+                tint = Color.White,
+                modifier = Modifier.size(30.dp)
             )
         }
     }
 }
 
+// Funções de conveniência para manter compatibilidade
+@Composable
+fun CabecalhoComPerfil() {
+    CabecalhoPersonalizavel()
+}
+
+@Composable
+fun CabecalhoBiblioteca() {
+    CabecalhoPersonalizavel(
+        titulo = "Sua Biblioteca",
+        corPerfil = Color.Green,
+        corTintePerfil = Color.Black,
+        tamanhoTitulo = 28.sp,
+        mostrarIconesDireita = true,
+        iconesDireita = listOf(
+            Icons.Default.Search to Color.DarkGray,
+            Icons.Default.Add to Color.DarkGray
+        )
+    )
+}
+
 @Composable
 fun CabecalhoSearch() {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp)
-    ) {
-        // Foto do perfil
-        Surface(
-            modifier = Modifier.size(40.dp),
-            shape = CircleShape,
-            color = Color.Gray
-        ) {
-            Icon(
-                imageVector = Icons.Default.Person,
-                contentDescription = "Perfil",
-                tint = Color.White,
-                modifier = Modifier.padding(8.dp)
-            )
-        }
-        
-        Text(
-            text = "Search",
-            color = Color.White,
-            fontSize = 25.sp,
-            fontWeight = FontWeight.Bold
-        )
-        
-        Icon(
-            imageVector = Icons.Default.Notifications,
-            contentDescription = "Notificações",
-            tint = Color.White,
-            modifier = Modifier.size(30.dp)
-        )
-    }
+    CabecalhoPersonalizavel(
+        titulo = "Search"
+    )
 }
 
 @Composable
@@ -212,17 +218,35 @@ fun MenuSuperior(opcaoSelecionada: String = "All") {
 }
 
 @Composable
-fun BotaoMenuSuperior(texto: String, selecionado: Boolean) {
+fun BotaoMenuSuperiorPersonalizavel(
+    texto: String, 
+    selecionado: Boolean,
+    corSelecionado: Color = Color.Green,
+    corNaoSelecionado: Color = Color.DarkGray,
+    corTextoSelecionado: Color = Color.Black,
+    corTextoNaoSelecionado: Color = Color.White,
+    raioArredondamento: androidx.compose.ui.unit.Dp = 20.dp,
+    onClick: () -> Unit = {}
+) {
     Button(
-        onClick = { },
+        onClick = onClick,
         colors = ButtonDefaults.buttonColors(
-            containerColor = if (selecionado) Color.Green else Color.DarkGray
+            containerColor = if (selecionado) corSelecionado else corNaoSelecionado
         ),
-        shape = RoundedCornerShape(20.dp)
+        shape = RoundedCornerShape(raioArredondamento)
     ) {
         Text(
             text = texto,
-            color = if (selecionado) Color.Black else Color.White
+            color = if (selecionado) corTextoSelecionado else corTextoNaoSelecionado
         )
     }
+}
+
+// Função de conveniência para manter compatibilidade
+@Composable
+fun BotaoMenuSuperior(texto: String, selecionado: Boolean) {
+    BotaoMenuSuperiorPersonalizavel(
+        texto = texto,
+        selecionado = selecionado
+    )
 }

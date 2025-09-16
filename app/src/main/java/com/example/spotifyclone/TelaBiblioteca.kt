@@ -1,4 +1,4 @@
-﻿package com.example.spotifyclone
+package com.example.spotifyclone
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -246,5 +246,4 @@ fun MenuFinalContent() {
         }
     }
 }
-
 

@@ -35,7 +35,7 @@ fun TelaHome(modifier: Modifier = Modifier) {
         modifier = modifier.fillMaxSize(),
         containerColor = Color.Black,
         bottomBar = {
-            MenuInferior(telaAtual = "inicio")
+            MenuInferior(telaAtual = "home")
         }
     ) { paddingValues ->
         LazyColumn(
@@ -87,8 +87,7 @@ fun GridMusicasRecentes() {
         }
         
         Spacer(modifier = Modifier.height(8.dp))
-        
-        // Quarta linha
+
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -110,7 +109,6 @@ fun CardMusicaRecente(titulo: String, cor: Color, modifier: Modifier = Modifier)
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.padding(4.dp)
         ) {
-            // Imagem/Cor do álbum
             Surface(
                 modifier = Modifier.size(52.dp),
                 color = cor,
