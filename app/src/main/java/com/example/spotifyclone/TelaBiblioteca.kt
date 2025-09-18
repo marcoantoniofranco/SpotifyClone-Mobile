@@ -41,10 +41,9 @@ import androidx.navigation.NavHostController
 @Composable
 fun TelaBiblioteca(
     navController: NavHostController? = null,
-    modifier: Modifier = Modifier
 ) {
     Scaffold(
-        modifier = modifier,
+        modifier = Modifier,
         containerColor = Color.Black, 
         bottomBar = {
             MenuInferior(
@@ -271,10 +270,4 @@ fun MenuFinalContent() {
             Biblioteca()
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewTelaBiblioteca() {
-    Biblioteca()
 }
