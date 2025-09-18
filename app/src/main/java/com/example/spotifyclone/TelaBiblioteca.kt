@@ -1,7 +1,6 @@
 package com.example.spotifyclone
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -12,12 +11,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -33,6 +29,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.spotifyclone.ui.theme.SpotifyCloneTheme
 import androidx.navigation.NavHostController
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.*
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.material.icons.Icons
+import androidx.annotation.DrawableRes
+import androidx.compose.foundation.layout.Box
 
 @Composable
 fun TelaBiblioteca(
@@ -40,11 +43,11 @@ fun TelaBiblioteca(
 ) {
     Scaffold(
         modifier = Modifier,
-        containerColor = Color.Black, 
+        containerColor = Color.Black,
         bottomBar = {
             MenuInferior(
                 telaAtual = "biblioteca",
-                onNavigate = { destino -> 
+                onNavigate = { destino ->
                     navController?.navigate(destino)
                 }
             )
@@ -118,7 +121,7 @@ fun Recentes() {
                 imageVector = Icons.Default.ArrowDropDown,
                 contentDescription = "",
                 modifier = Modifier.size(40.dp),
-                tint = Color.Green
+                tint = Color(0xFF9127F5)
             )}
         Spacer(modifier = Modifier.width(5.dp))
 
@@ -131,7 +134,7 @@ fun Recentes() {
                 imageVector = Icons.Default.Menu,
                 contentDescription = "",
                 modifier = Modifier.size(40.dp),
-                tint = Color.Green
+                tint = Color(0xFF9127F5)
             )}
 
     }
@@ -140,7 +143,8 @@ fun Recentes() {
 
 
 @Composable
-fun Playlist(titulo: String, subtitulo: String, icone: ImageVector, ehRedondo: Boolean) {
+fun Playlist(titulo: String, subtitulo: String, @DrawableRes imagemId: Int? = null, // Opcional para imagem
+             icone: ImageVector? = null, ehRedondo: Boolean) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
@@ -152,13 +156,36 @@ fun Playlist(titulo: String, subtitulo: String, icone: ImageVector, ehRedondo: B
             color = Color.DarkGray,
             shape = if (ehRedondo) CircleShape else RoundedCornerShape(4.dp)
         ) {
-            Box(contentAlignment = Alignment.Center) {
-                Icon(
-                    imageVector = icone,
-                    contentDescription = titulo,
-                    modifier = Modifier.size(40.dp),
-                    tint = Color.Green
-                )
+
+            when {
+                imagemId != null -> {
+                    Image(
+                        painter = painterResource(id = imagemId),
+                        contentDescription = titulo,
+                        modifier = Modifier.fillMaxSize(),
+                        contentScale = ContentScale.Crop
+                    )
+                }
+                icone != null -> {
+                    Box(contentAlignment = Alignment.Center) {
+                        Icon(
+                            imageVector = icone,
+                            contentDescription = titulo,
+                            modifier = Modifier.size(40.dp),
+                            tint = Color.Magenta
+                        )
+                    }
+                }
+                else -> {
+                    Box(contentAlignment = Alignment.Center) {
+                        Icon(
+                            imageVector = Icons.Default.Favorite,
+                            contentDescription = titulo,
+                            modifier = Modifier.size(40.dp),
+                            tint = Color(0xFF9127F5)
+                        )
+                    }
+                }
             }
         }
         Spacer(modifier = Modifier.width(15.dp))
@@ -189,43 +216,43 @@ fun ListaRecentes() {
         Playlist(
             titulo = "Espresso",
             subtitulo = "Single - Sabrina Carpenter",
-            icone = Icons.Default.Star,
+            imagemId = R.drawable.expresso,
             ehRedondo = false
         )
         Playlist(
             titulo = "Yuuri",
             subtitulo = "Artista -",
-            icone = Icons.Default.Person,
+            imagemId = R.drawable.yuuri,
             ehRedondo = true
         )
         Playlist(
             titulo = "Pop",
             subtitulo = "Playlist -",
-            icone = Icons.Default.Star,
+            imagemId = R.drawable.pop,
             ehRedondo = false
         )
         Playlist(
             titulo = "Rock",
             subtitulo = "Playlist -",
-            icone = Icons.Default.Star,
+            imagemId = R.drawable.rock,
             ehRedondo = false
         )
         Playlist(
             titulo = "Bruno Mars",
             subtitulo = "Artista -",
-            icone = Icons.Default.Person,
+            imagemId = R.drawable.brunomars,
             ehRedondo = true
         )
         Playlist(
             titulo = "Enhypen",
             subtitulo = "Artista -",
-            icone = Icons.Default.Person,
+            imagemId = R.drawable.enhypen,
             ehRedondo = true
         )
         Playlist(
             titulo = "Over Each Other",
             subtitulo = "Single - Linkin Park",
-            icone = Icons.Default.Star,
+            imagemId = R.drawable.overeachother,
             ehRedondo = false
         )
 

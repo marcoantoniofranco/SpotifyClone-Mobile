@@ -88,28 +88,28 @@ fun MenuInferior(
                 texto = "Início",
                 icone = Icons.Default.Home,
                 selecionado = telaAtual == "home",
-                corSelecionado = Color(0xFF1DB954), // Verde Spotify
+                corSelecionado = Color(0xFF9127F5),
                 onClick = { onNavigate("home") }
             )
             BotaoMenuPersonalizavel(
                 texto = "Buscar",
                 icone = Icons.Default.Search,
                 selecionado = telaAtual == "search",
-                corSelecionado = Color(0xFF1DB954), // Verde Spotify
+                corSelecionado = Color(0xFF9127F5),
                 onClick = { onNavigate("search") }
             )
             BotaoMenuPersonalizavel(
                 texto = "Sua Biblioteca",
                 icone = Icons.Default.Menu,
                 selecionado = telaAtual == "biblioteca",
-                corSelecionado = Color(0xFF1DB954), // Verde Spotify
+                corSelecionado = Color(0xFF9127F5),
                 onClick = { onNavigate("biblioteca") }
             )
             BotaoMenuPersonalizavel(
                 texto = "Criar",
                 icone = Icons.Default.Add,
                 selecionado = telaAtual == "criar",
-                corSelecionado = Color(0xFF1DB954), // Verde Spotify
+                corSelecionado = Color(0xFF9127F5),
                 onClick = { onNavigate("criar") }
             )
         }
@@ -186,11 +186,10 @@ fun CabecalhoPersonalizavel(
     }
 }
 
-// Funções de conveniência para manter compatibilidade - MELHORADAS
 @Composable
 fun CabecalhoComPerfil() {
     CabecalhoPersonalizavel(
-        corPerfil = Color(0xFF1DB954), // Verde Spotify
+        corPerfil = Color(0xFF9127F5),
         tamanhoPerfil = 42.dp
     )
 }
@@ -199,7 +198,7 @@ fun CabecalhoComPerfil() {
 fun CabecalhoBiblioteca() {
     CabecalhoPersonalizavel(
         titulo = "Sua Biblioteca",
-        corPerfil = Color(0xFF1DB954), // Verde Spotify
+        corPerfil = Color(0xFF9127F5),
         corTintePerfil = Color.Black,
         tamanhoPerfil = 42.dp,
         tamanhoTitulo = 28.sp,
@@ -215,7 +214,7 @@ fun CabecalhoBiblioteca() {
 fun CabecalhoSearch() {
     CabecalhoPersonalizavel(
         titulo = "Search",
-        corPerfil = Color(0xFF1DB954), // Verde Spotify
+        corPerfil = Color(0xFF9127F5),
         tamanhoPerfil = 42.dp,
         tamanhoTitulo = 26.sp,
         mostrarIconesDireita = true,
@@ -229,7 +228,7 @@ fun CabecalhoSearch() {
 fun CabecalhoCriar() {
     CabecalhoPersonalizavel(
         titulo = "Criar",
-        corPerfil = Color(0xFF1DB954), // Verde Spotify
+        corPerfil = Color(0xFF9127F5),
         tamanhoPerfil = 42.dp,
         tamanhoTitulo = 26.sp
     )
@@ -253,7 +252,7 @@ fun MenuSuperior(opcaoSelecionada: String = "All") {
 fun BotaoMenuSuperiorPersonalizavel(
     texto: String, 
     selecionado: Boolean,
-    corSelecionado: Color = Color.Green,
+    corSelecionado: Color = Color(0xFF9127F5),
     corNaoSelecionado: Color = Color.DarkGray,
     corTextoSelecionado: Color = Color.Black,
     corTextoNaoSelecionado: Color = Color.White,
