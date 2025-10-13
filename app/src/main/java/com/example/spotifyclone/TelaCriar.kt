@@ -1,6 +1,7 @@
 package com.example.spotifyclone
 
 import android.widget.Toast
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -33,17 +34,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.spotifyclone.ui.theme.*
 
 @Composable
 fun TelaCriar(
-    navController: NavHostController? = null,
+    navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
     
     Scaffold(
         modifier = modifier.fillMaxSize(),
-        containerColor = Color.Black,
+        containerColor = SpotifyBackground,
         bottomBar = {
             MenuInferior(
                 telaAtual = "criar",
@@ -72,7 +74,7 @@ fun TelaCriar(
             
             Spacer(modifier = Modifier.height(32.dp))
             
-            OpcoesCrear()
+            OpcoesCrear(navController)
             
             Spacer(modifier = Modifier.height(24.dp))
             
@@ -90,7 +92,7 @@ fun TelaCriar(
 }
 
 @Composable
-fun OpcoesCrear() {
+fun OpcoesCrear(navController: NavHostController) {
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
@@ -114,6 +116,21 @@ fun OpcoesCrear() {
             subtitulo = "Junte os gostos musicais da sua galera em uma playlist",
             corIcone = Color.White
         )
+        
+        Surface(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { navController.navigate("crud_musica") },
+            color = SpotifyCardBackground,
+            shape = RoundedCornerShape(8.dp)
+        ) {
+            OpcaoCriar(
+                icone = Icons.Default.Add,
+                titulo = "Gerenciar Músicas",
+                subtitulo = "Adicionar, editar ou remover músicas",
+                corIcone = SpotifyPrimary
+            )
+        }
     }
 }
 
@@ -122,7 +139,7 @@ fun OpcaoCriar(
     icone: ImageVector,
     titulo: String,
     subtitulo: String,
-    corIcone: Color = Color.White
+    corIcone: Color = SpotifyTextPrimary
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -132,7 +149,7 @@ fun OpcaoCriar(
     ) {
         Surface(
             modifier = Modifier.size(60.dp),
-            color = Color.DarkGray,
+            color = SpotifyCardBackground,
             shape = RoundedCornerShape(8.dp)
         ) {
             Box(contentAlignment = Alignment.Center) {
@@ -150,13 +167,13 @@ fun OpcaoCriar(
         Column {
             Text(
                 text = titulo,
-                color = Color.White,
+                color = SpotifyTextPrimary,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold
             )
             Text(
                 text = subtitulo,
-                color = Color.Gray,
+                color = SpotifyTextSecondary,
                 fontSize = 14.sp
             )
         }
@@ -166,5 +183,6 @@ fun OpcaoCriar(
 @Preview(showBackground = true)
 @Composable
 fun PreviewTelaCriar() {
-    TelaCriar()
+    // For preview, we can't pass a real NavController, so we'll create a mock or skip the preview
+    // TelaCriar() - This would cause the error since navController is required
 }

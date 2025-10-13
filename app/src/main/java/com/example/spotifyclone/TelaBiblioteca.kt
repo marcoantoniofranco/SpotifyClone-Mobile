@@ -32,7 +32,10 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.spotifyclone.ui.theme.SpotifyCloneTheme
+import com.example.spotifyclone.ui.theme.*
 import androidx.navigation.NavHostController
+import android.widget.Toast
+import androidx.compose.ui.platform.LocalContext
 
 @Composable
 fun TelaBiblioteca(
@@ -40,7 +43,7 @@ fun TelaBiblioteca(
 ) {
     Scaffold(
         modifier = Modifier,
-        containerColor = Color.Black, 
+        containerColor = SpotifyBackground, 
         bottomBar = {
             MenuInferior(
                 telaAtual = "biblioteca",
@@ -50,34 +53,22 @@ fun TelaBiblioteca(
             )
         }
     ) { paddingValues ->
-        Column(
+        LazyColumn(
             modifier = Modifier.padding(paddingValues)
         ) {
-            Biblioteca()
-        }
-    }
-}
-
-@Composable
-fun Biblioteca(){
-    Surface(
-        color = Color.Black,
-        modifier = Modifier
-            .fillMaxWidth()
-    ){
-        LazyColumn{
             item { CabecalhoBiblioteca() }
-            item { Opcoes() }
-            item{ Recentes() }
-            item{ ListaRecentes() }
+            item { Opcoes(navController) }
+            item { Recentes() }
+            item { ListaRecentes() }
         }
     }
-
 }
 
 
 @Composable
-fun Opcoes(){
+fun Opcoes(navController: NavHostController? = null){
+    val context = LocalContext.current
+    
     Row(
         modifier = Modifier
             .padding(10.dp)
@@ -85,20 +76,56 @@ fun Opcoes(){
         horizontalArrangement = Arrangement.Start
     ){
         Column {
-            Button(onClick = { }){
+            Button(
+                onClick = { 
+                    try {
+                        Toast.makeText(context, "Filtro Playlists selecionado", Toast.LENGTH_SHORT).show()
+                    } catch (e: Exception) {
+                        // Evita crashes por problemas de contexto
+                    }
+                }
+            ){
                 Text("Playlists")
             }
         }
         Spacer(modifier = Modifier.width(5.dp))
         Column {
-            Button(onClick = { }){
+            Button(
+                onClick = { 
+                    try {
+                        Toast.makeText(context, "Filtro Albuns selecionado", Toast.LENGTH_SHORT).show()
+                    } catch (e: Exception) {
+                        // Evita crashes por problemas de contexto
+                    }
+                }
+            ){
                 Text("Albuns")
             }
         }
         Spacer(modifier = Modifier.width(5.dp))
         Column {
-            Button(onClick = { }){
+            Button(
+                onClick = { 
+                    try {
+                        Toast.makeText(context, "Filtro Artistas selecionado", Toast.LENGTH_SHORT).show()
+                    } catch (e: Exception) {
+                        // Evita crashes por problemas de contexto
+                    }
+                }
+            ){
                 Text("Artistas")
+            }
+        }
+        Spacer(modifier = Modifier.width(5.dp))
+        Column {
+            Button(
+                onClick = { 
+                    navController?.navigate("crud_playlist") {
+                        launchSingleTop = true
+                    }
+                }
+            ){
+                Text("Gerenciar")
             }
         }
     }
@@ -149,7 +176,7 @@ fun Playlist(titulo: String, subtitulo: String, icone: ImageVector, ehRedondo: B
     ) {
         Surface(
             modifier = Modifier.size(70.dp),
-            color = Color.DarkGray,
+            color = SpotifyCardBackground,
             shape = if (ehRedondo) CircleShape else RoundedCornerShape(4.dp)
         ) {
             Box(contentAlignment = Alignment.Center) {
@@ -157,7 +184,7 @@ fun Playlist(titulo: String, subtitulo: String, icone: ImageVector, ehRedondo: B
                     imageVector = icone,
                     contentDescription = titulo,
                     modifier = Modifier.size(40.dp),
-                    tint = Color.Green
+                    tint = SpotifyPrimary
                 )
             }
         }
@@ -166,12 +193,12 @@ fun Playlist(titulo: String, subtitulo: String, icone: ImageVector, ehRedondo: B
             Text(
                 text = titulo,
                 style = MaterialTheme.typography.headlineSmall,
-                color = Color.White
+                color = SpotifyTextPrimary
             )
             Text(
                 text = subtitulo,
                 style = MaterialTheme.typography.titleSmall,
-                color = Color.White
+                color = SpotifyTextPrimary
             )
         }
     }
@@ -248,10 +275,13 @@ fun MenuFinalContent() {
     Scaffold(containerColor = Color.Black, bottomBar = {
         MenuInferior(telaAtual = "biblioteca")
     }) { paddingValues ->
-        Column(
+        LazyColumn(
             modifier = Modifier.padding(paddingValues)
         ) {
-            Biblioteca()
+            item { CabecalhoBiblioteca() }
+            item { Opcoes() }
+            item { Recentes() }
+            item { ListaRecentes() }
         }
     }
 }

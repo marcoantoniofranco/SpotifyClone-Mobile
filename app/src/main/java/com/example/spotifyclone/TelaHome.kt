@@ -33,21 +33,26 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import android.widget.Toast
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.foundation.clickable
+import com.example.spotifyclone.ui.theme.*
+import com.example.spotifyclone.models.Musica
 
 @Composable
 fun TelaHome(
     navController: NavHostController? = null,
     modifier: Modifier = Modifier
 ) {
-    // Simulando dados do "backend"
-    val musicasRecentes = remember { mutableStateOf(MusicRepository.getMusicasRecentes()) }
+    val musicasRecentes = remember { mutableStateOf(sampleMusicasRecentes()) }
     
     Scaffold(
         modifier = modifier.fillMaxSize(),
-        containerColor = Color.Black,
+        containerColor = SpotifyBackground,
         bottomBar = {
             MenuInferior(
                 telaAtual = "home",
+                // Lambda com parâmetro
                 onNavigate = { destino -> 
                     navController?.navigate(destino)
                 }
@@ -71,10 +76,12 @@ fun TelaHome(
 
 @Composable
 fun GridMusicasRecentes(musicas: List<Musica>) {
+    val context = LocalContext.current
+    
     Column(
         modifier = Modifier.padding(horizontal = 16.dp)
     ) {
-        // Usando dados reais do backend
+        // Lambda de iteração
         musicas.chunked(2).forEach { par ->
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -83,8 +90,12 @@ fun GridMusicasRecentes(musicas: List<Musica>) {
                 par.forEach { musica ->
                     CardMusicaRecente(
                         titulo = musica.titulo, 
-                        cor = Color(0xFF4A90E2), // Cor padrão, poderia vir do backend também
-                        modifier = Modifier.weight(1f)
+                        cor = Color(0xFF4A90E2),
+                        modifier = Modifier.weight(1f),
+                        // Lambda com interpolação
+                        onClick = {
+                            Toast.makeText(context, "Tocando: ${musica.titulo}", Toast.LENGTH_SHORT).show()
+                        }
                     )
                 }
                 // Se só tem uma música no par, adiciona espaço
@@ -98,10 +109,12 @@ fun GridMusicasRecentes(musicas: List<Musica>) {
 }
 
 @Composable
-fun CardMusicaRecente(titulo: String, cor: Color, modifier: Modifier = Modifier) {
+fun CardMusicaRecente(titulo: String, cor: Color, modifier: Modifier = Modifier, onClick: () -> Unit = {}) {
     Surface(
-        modifier = modifier.height(60.dp),
-        color = Color.DarkGray,
+        modifier = modifier
+            .height(60.dp)
+            .clickable { onClick() },
+        color = SpotifyCardBackground,
         shape = RoundedCornerShape(4.dp)
     ) {
         Row(
@@ -118,7 +131,7 @@ fun CardMusicaRecente(titulo: String, cor: Color, modifier: Modifier = Modifier)
             
             Text(
                 text = titulo,
-                color = Color.White,
+                color = SpotifyTextPrimary,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Medium,
                 modifier = Modifier.weight(1f)
@@ -129,19 +142,21 @@ fun CardMusicaRecente(titulo: String, cor: Color, modifier: Modifier = Modifier)
 
 @Composable
 fun NovoLancamento() {
+    val context = LocalContext.current
+    
     Column(
         modifier = Modifier.padding(horizontal = 16.dp)
     ) {
         Text(
             text = "New release from",
-            color = Color.White,
+            color = SpotifyTextPrimary,
             fontSize = 16.sp,
             fontWeight = FontWeight.Medium
         )
         
         Text(
             text = "Arctic Monkeys",
-            color = Color.White,
+            color = SpotifyTextPrimary,
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold
         )
@@ -150,7 +165,7 @@ fun NovoLancamento() {
         
         Surface(
             modifier = Modifier.fillMaxWidth(),
-            color = Color.DarkGray,
+            color = SpotifyCardBackground,
             shape = RoundedCornerShape(8.dp)
         ) {
             Row(
@@ -159,11 +174,11 @@ fun NovoLancamento() {
             ) {
                 Surface(
                     modifier = Modifier.size(80.dp),
-                    color = Color.Gray,
+                    color = SpotifyUnselected,
                     shape = RoundedCornerShape(4.dp)
                 ) {
                     Box(contentAlignment = Alignment.Center) {
-                        Text("AM", color = Color.White, fontWeight = FontWeight.Bold)
+                        Text("AM", color = SpotifyTextPrimary, fontWeight = FontWeight.Bold)
                     }
                 }
                 
@@ -172,13 +187,13 @@ fun NovoLancamento() {
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
                         text = "I Wanna Be Yours",
-                        color = Color.White,
+                        color = SpotifyTextPrimary,
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Bold
                     )
                     Text(
                         text = "Single • Arctic Monkeys",
-                        color = Color.Gray,
+                        color = SpotifyTextSecondary,
                         fontSize = 14.sp
                     )
                     
@@ -192,7 +207,11 @@ fun NovoLancamento() {
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     Surface(
-                        modifier = Modifier.size(32.dp),
+                        modifier = Modifier
+                            .size(32.dp)
+                            .clickable {
+                                Toast.makeText(context, "Adicionado à biblioteca", Toast.LENGTH_SHORT).show()
+                            },
                         color = Color.Transparent,
                         shape = RoundedCornerShape(16.dp)
                     ) {
@@ -205,7 +224,12 @@ fun NovoLancamento() {
                     }
                     
                     Surface(
-                        modifier = Modifier.size(48.dp),
+                        modifier = Modifier
+                            .size(48.dp)
+                            // Lambda de ação -reprodução da música
+                            .clickable {
+                                Toast.makeText(context, "Reproduzindo: I Wanna Be Yours", Toast.LENGTH_SHORT).show()
+                            },
                         color = Color.White,
                         shape = RoundedCornerShape(24.dp)
                     ) {
@@ -226,4 +250,14 @@ fun NovoLancamento() {
 @Composable
 fun PreviewTelaHome() {
     TelaHome()
+}
+
+// Função de dados de exemplo para compilar sem o repositório ainda
+private fun sampleMusicasRecentes(): List<Musica> {
+    return listOf(
+        Musica(titulo = "I Wanna Be Yours", artista = "Arctic Monkeys", album = "AM", duracao = "3:04"),
+        Musica(titulo = "Do I Wanna Know?", artista = "Arctic Monkeys", album = "AM", duracao = "4:32"),
+        Musica(titulo = "505", artista = "Arctic Monkeys", album = "Favourite Worst Nightmare", duracao = "4:13"),
+        Musica(titulo = "R U Mine?", artista = "Arctic Monkeys", album = "AM", duracao = "3:21")
+    )
 }

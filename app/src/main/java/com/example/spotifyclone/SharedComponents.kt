@@ -30,14 +30,15 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.spotifyclone.ui.theme.*
 
 @Composable
 fun BotaoMenuPersonalizavel(
     texto: String, 
     icone: ImageVector, 
     selecionado: Boolean, 
-    corSelecionado: Color = Color.White,
-    corNaoSelecionado: Color = Color.Gray,
+    corSelecionado: Color = SpotifyTextPrimary,
+    corNaoSelecionado: Color = SpotifyUnselected,
     tamanhoIcone: androidx.compose.ui.unit.Dp = 24.dp,
     tamanhoTexto: androidx.compose.ui.unit.TextUnit = 12.sp,
     onClick: () -> Unit = {}
@@ -77,7 +78,7 @@ fun MenuInferior(
     telaAtual: String = "biblioteca",
     onNavigate: (String) -> Unit = {}
 ) {
-    Surface(color = Color.Black) {
+    Surface(color = SpotifyBackground) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -88,28 +89,28 @@ fun MenuInferior(
                 texto = "Início",
                 icone = Icons.Default.Home,
                 selecionado = telaAtual == "home",
-                corSelecionado = Color(0xFF1DB954), // Verde Spotify
+                corSelecionado = SpotifySelected,
                 onClick = { onNavigate("home") }
             )
             BotaoMenuPersonalizavel(
                 texto = "Buscar",
                 icone = Icons.Default.Search,
                 selecionado = telaAtual == "search",
-                corSelecionado = Color(0xFF1DB954), // Verde Spotify
+                corSelecionado = SpotifySelected,
                 onClick = { onNavigate("search") }
             )
             BotaoMenuPersonalizavel(
                 texto = "Sua Biblioteca",
                 icone = Icons.Default.Menu,
                 selecionado = telaAtual == "biblioteca",
-                corSelecionado = Color(0xFF1DB954), // Verde Spotify
+                corSelecionado = SpotifySelected,
                 onClick = { onNavigate("biblioteca") }
             )
             BotaoMenuPersonalizavel(
                 texto = "Criar",
                 icone = Icons.Default.Add,
                 selecionado = telaAtual == "criar",
-                corSelecionado = Color(0xFF1DB954), // Verde Spotify
+                corSelecionado = SpotifySelected,
                 onClick = { onNavigate("criar") }
             )
         }
@@ -119,13 +120,13 @@ fun MenuInferior(
 @Composable
 fun CabecalhoPersonalizavel(
     titulo: String? = null,
-    corPerfil: Color = Color.Gray,
-    corTintePerfil: Color = Color.White,
+    corPerfil: Color = SpotifyUnselected,
+    corTintePerfil: Color = SpotifyTextPrimary,
     tamanhoPerfil: androidx.compose.ui.unit.Dp = 40.dp,
     mostrarIconesDireita: Boolean = false,
     iconesDireita: List<Pair<ImageVector, Color>> = emptyList(),
     tamanhoTitulo: androidx.compose.ui.unit.TextUnit = 25.sp,
-    corTitulo: Color = Color.White
+    corTitulo: Color = SpotifyTextPrimary
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -179,7 +180,7 @@ fun CabecalhoPersonalizavel(
             Icon(
                 imageVector = Icons.Default.Notifications,
                 contentDescription = "Notificações",
-                tint = Color.White,
+                tint = SpotifyTextPrimary,
                 modifier = Modifier.size(30.dp)
             )
         }
@@ -190,7 +191,7 @@ fun CabecalhoPersonalizavel(
 @Composable
 fun CabecalhoComPerfil() {
     CabecalhoPersonalizavel(
-        corPerfil = Color(0xFF1DB954), // Verde Spotify
+        corPerfil = SpotifyPrimary,
         tamanhoPerfil = 42.dp
     )
 }
@@ -199,14 +200,14 @@ fun CabecalhoComPerfil() {
 fun CabecalhoBiblioteca() {
     CabecalhoPersonalizavel(
         titulo = "Sua Biblioteca",
-        corPerfil = Color(0xFF1DB954), // Verde Spotify
-        corTintePerfil = Color.Black,
+        corPerfil = SpotifyPrimary,
+        corTintePerfil = SpotifyTextOnPrimary,
         tamanhoPerfil = 42.dp,
         tamanhoTitulo = 28.sp,
         mostrarIconesDireita = true,
         iconesDireita = listOf(
-            Icons.Default.Search to Color.White,
-            Icons.Default.Add to Color.White
+            Icons.Default.Search to SpotifyTextPrimary,
+            Icons.Default.Add to SpotifyTextPrimary
         )
     )
 }
@@ -215,12 +216,12 @@ fun CabecalhoBiblioteca() {
 fun CabecalhoSearch() {
     CabecalhoPersonalizavel(
         titulo = "Search",
-        corPerfil = Color(0xFF1DB954), // Verde Spotify
+        corPerfil = SpotifyPrimary,
         tamanhoPerfil = 42.dp,
         tamanhoTitulo = 26.sp,
         mostrarIconesDireita = true,
         iconesDireita = listOf(
-            Icons.Default.Notifications to Color.White
+            Icons.Default.Notifications to SpotifyTextPrimary
         )
     )
 }
@@ -229,7 +230,7 @@ fun CabecalhoSearch() {
 fun CabecalhoCriar() {
     CabecalhoPersonalizavel(
         titulo = "Criar",
-        corPerfil = Color(0xFF1DB954), // Verde Spotify
+        corPerfil = SpotifyPrimary,
         tamanhoPerfil = 42.dp,
         tamanhoTitulo = 26.sp
     )
@@ -253,10 +254,10 @@ fun MenuSuperior(opcaoSelecionada: String = "All") {
 fun BotaoMenuSuperiorPersonalizavel(
     texto: String, 
     selecionado: Boolean,
-    corSelecionado: Color = Color.Green,
-    corNaoSelecionado: Color = Color.DarkGray,
-    corTextoSelecionado: Color = Color.Black,
-    corTextoNaoSelecionado: Color = Color.White,
+    corSelecionado: Color = SpotifySelected,
+    corNaoSelecionado: Color = SpotifyCardBackground,
+    corTextoSelecionado: Color = SpotifyTextOnPrimary,
+    corTextoNaoSelecionado: Color = SpotifyTextPrimary,
     raioArredondamento: androidx.compose.ui.unit.Dp = 20.dp,
     onClick: () -> Unit = {}
 ) {

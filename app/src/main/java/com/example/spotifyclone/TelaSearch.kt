@@ -28,6 +28,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import android.widget.Toast
+import androidx.compose.ui.platform.LocalContext
+import com.example.spotifyclone.ui.theme.*
 
 @Composable
 fun TelaSearch(
@@ -38,7 +41,7 @@ fun TelaSearch(
     
     Scaffold(
         modifier = modifier.fillMaxSize(),
-        containerColor = Color.Black,
+        containerColor = SpotifyBackground,
         bottomBar = {
             MenuInferior(
                 telaAtual = "search",
@@ -79,22 +82,22 @@ fun CampoSearch(
             placeholder = { 
                 Text(
                     text = "What do you want to play?",
-                    color = Color.Gray
+                    color = SpotifyTextSecondary
                 ) 
             },
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Default.Search,
                     contentDescription = "Search",
-                    tint = Color.Gray,
+                    tint = SpotifyTextSecondary,
                     modifier = Modifier.size(24.dp)
                 )
             },
             colors = TextFieldDefaults.colors(
-                focusedContainerColor = Color.White,
-                unfocusedContainerColor = Color.White,
-                focusedTextColor = Color.Black,
-                unfocusedTextColor = Color.Black,
+                focusedContainerColor = SpotifyTextPrimary,
+                unfocusedContainerColor = SpotifyTextPrimary,
+                focusedTextColor = SpotifyBackground,
+                unfocusedTextColor = SpotifyBackground,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent
             ),
@@ -105,12 +108,14 @@ fun CampoSearch(
 
 @Composable
 fun SecaoExploreType() {
+    val context = LocalContext.current
+    
     Column(
         modifier = Modifier.padding(horizontal = 16.dp)
     ) {
         Text(
             text = "Explore your musical type",
-            color = Color.White,
+            color = SpotifyTextPrimary,
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(bottom = 16.dp)
@@ -124,19 +129,28 @@ fun SecaoExploreType() {
                 titulo = "#permanent wave",
                 largura = 108.dp,
                 altura = 160.dp,
-                imagemResource = R.drawable.thumb_verticale
+                imagemResource = R.drawable.thumb_verticale,
+                onClick = {
+                    Toast.makeText(context, "Selecionado: #permanent wave", Toast.LENGTH_SHORT).show()
+                }
             )
             CardSecundario(
                 titulo = "#madebetter",
                 largura = 108.dp,
                 altura = 160.dp,
-                imagemResource = R.drawable.thumb_verticale_1
+                imagemResource = R.drawable.thumb_verticale_1,
+                onClick = {
+                    Toast.makeText(context, "Selecionado: #madebetter", Toast.LENGTH_SHORT).show()
+                }
             )
             CardSecundario(
                 titulo = "#dance rock",
                 largura = 108.dp,
                 altura = 160.dp,
-                imagemResource = R.drawable.thumb_verticale_2
+                imagemResource = R.drawable.thumb_verticale_2,
+                onClick = {
+                    Toast.makeText(context, "Selecionado: #dance rock", Toast.LENGTH_SHORT).show()
+                }
             )
         }
     }
@@ -144,6 +158,8 @@ fun SecaoExploreType() {
 
 @Composable
 fun SecaoBrowseAll() {
+    val context = LocalContext.current
+    
     Column(
         modifier = Modifier.padding(horizontal = 16.dp)
     ) {
@@ -166,13 +182,19 @@ fun SecaoBrowseAll() {
                     titulo = "Music",
                     imagemResource = R.drawable.browse,
                     largura = 170.dp,
-                    altura = 90.dp
+                    altura = 90.dp,
+                    onClick = {
+                        Toast.makeText(context, "Navegando para Music", Toast.LENGTH_SHORT).show()
+                    }
                 )
                 CardSecundario(
                     titulo = "Podcast",
                     imagemResource = R.drawable.browse1,
                     largura = 170.dp,
-                    altura = 90.dp
+                    altura = 90.dp,
+                    onClick = {
+                        Toast.makeText(context, "Navegando para Podcast", Toast.LENGTH_SHORT).show()
+                    }
                 )
             }
             
@@ -180,17 +202,24 @@ fun SecaoBrowseAll() {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
+
                 CardSecundario(
                     titulo = "Live Events",
                     imagemResource = R.drawable.browse3,
                     largura = 170.dp,
-                    altura = 90.dp
+                    altura = 90.dp,
+                    onClick = {
+                        Toast.makeText(context, "Navegando para Live Events", Toast.LENGTH_SHORT).show()
+                    }
                 )
                 CardSecundario(
                     titulo = "Made For You",
                     imagemResource = R.drawable.browse4,
                     largura = 170.dp,
-                    altura = 90.dp
+                    altura = 90.dp,
+                    onClick = {
+                        Toast.makeText(context, "Navegando para Made For You", Toast.LENGTH_SHORT).show()
+                    }
                 )
             }
         }

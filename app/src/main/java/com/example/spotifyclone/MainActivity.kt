@@ -14,6 +14,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.NavHostController
+import com.example.spotifyclone.screens.TelaCrudMusica
+import com.example.spotifyclone.screens.TelaCrudPlaylist
+import com.example.spotifyclone.screens.TelaDetalhesPlaylist
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,6 +49,16 @@ fun SpotifyCloneApp() {
                 }
                 composable("criar") { 
                     TelaCriar(navController = navController) 
+                }
+                composable("crud_musica") {
+                    TelaCrudMusica(navController = navController)
+                }
+                composable("crud_playlist") {
+                    TelaCrudPlaylist(navController = navController)
+                }
+                composable("playlist_details/{playlistId}") { backStackEntry ->
+                    val playlistId = backStackEntry.arguments?.getString("playlistId")?.toLongOrNull() ?: 0L
+                    TelaDetalhesPlaylist(navController = navController, playlistId = playlistId)
                 }
             }
         }

@@ -21,20 +21,24 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.foundation.clickable
+import com.example.spotifyclone.ui.theme.*
 
 @Composable
 fun CardSecundario(
     titulo: String, 
-    color: Color = Color.DarkGray,
+    color: Color = SpotifyCardBackground,
     largura: Dp = 108.dp,
     altura: Dp = 191.dp,
-    imagemResource: Int? = null
+    imagemResource: Int? = null,
+    onClick: () -> Unit = {}
 ) {
     Surface(
         modifier = Modifier
             .width(largura)
             .height(altura)
-            .padding(4.dp),
+            .padding(4.dp)
+            .clickable { onClick() },
         color = if (imagemResource != null) Color.Transparent else color,
         shadowElevation = 4.dp,
         shape = RoundedCornerShape(8.dp)
@@ -57,7 +61,7 @@ fun CardSecundario(
             Text(
                 text = titulo,
                 style = MaterialTheme.typography.titleMedium,
-                color = Color.White,
+                color = SpotifyTextPrimary,
                 fontWeight = FontWeight.Bold,
                 fontSize = 14.sp,
                 modifier = Modifier.padding(12.dp)
