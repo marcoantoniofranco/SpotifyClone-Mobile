@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+    
+    <!-- Background gradient -->
+    <path
+        android:pathData="M0,0h200v200h-200z">
+        <aapt:attr name="android:fillColor" xmlns:aapt="http://schemas.android.com/aapt">
+            <gradient
+                android:startX="0"
+                android:startY="0"
+                android:endX="200"
+                android:endY="200"
+                android:type="linear">
+                <item android:color="#8B4513" android:offset="0.0" />
+                <item android:color="#D2691E" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    
+    <!-- Microphone -->
+    <ellipse
+        android:fillColor="#C0C0C0"
+        android:pathData="M100,60 A20,30 0 1,1 100,60 Z" />
+    
+    <!-- Microphone handle -->
+    <rect
+        android:fillColor="#808080"
+        android:pathData="M95,90 L105,90 L105,140 L95,140 Z" />
+    
+    <!-- Musical notes -->
+    <path
+        android:fillColor="#FFD700"
+        android:pathData="M130,50 Q135,45 140,50 L140,70 Q135,75 130,70 Z" />
+    
+    <path
+        android:fillColor="#FFD700"
+        android:pathData="M60,80 Q65,75 70,80 L70,100 Q65,105 60,100 Z" />
+    
+    <!-- Hat silhouette -->
+    <ellipse
+        android:fillColor="#654321"
+        android:pathData="M100,40 A25,8 0 1,1 100,40 Z" />
+    
+    <rect
+        android:fillColor="#654321"
+        android:pathData="M90,32 L110,32 L110,40 L90,40 Z" />
+</vector>

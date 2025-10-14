@@ -32,7 +32,7 @@ import com.example.spotifyclone.ui.theme.*
 
 val playlistEmojis = listOf("🎵", "🎶", "🎤", "🎧", "🎸", "🎹", "🥁", "🎺", "🎷", "🎻")
 val playlistColors = listOf(
-    listOf(Color(0xFFB794F6), Color(0xFFD4BBFF)),  // Roxo claro
+    listOf(Color(0xFFB794F6), Color(0xFFD4BBFF)),
     listOf(Color(0xFFFF6B6B), Color(0xFFFF8E8E)),
     listOf(Color(0xFF4ECDC4), Color(0xFF44A08D)),
     listOf(Color(0xFF667eea), Color(0xFF764ba2)),
@@ -66,7 +66,11 @@ fun TelaCrudPlaylist(navController: NavController) {
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     IconButton(onClick = { navController.navigateUp() }) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Voltar", tint = SpotifyTextPrimary)
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "Voltar",
+                            tint = SpotifyTextPrimary
+                        )
                     }
                     Text(
                         text = "Minhas Playlists",
@@ -93,7 +97,11 @@ fun TelaCrudPlaylist(navController: NavController) {
                 },
                 containerColor = SpotifyPrimary
             ) {
-                Icon(Icons.Default.Add, contentDescription = "Adicionar", tint = Color.White)
+                Icon(
+                imageVector = Icons.Default.Add,
+                contentDescription = "Adicionar Playlist",
+                tint = Color.White
+            )
             }
         }
     ) { paddingValues ->
@@ -191,7 +199,6 @@ fun TelaCrudPlaylist(navController: NavController) {
                     onClick = {
                         if (nomePlaylist.isNotBlank()) {
                             if (playlistEditando == null) {
-                                // CREATE
                                 viewModel.insertPlaylist(
                                     Playlist(
                                         nome = nomePlaylist,
@@ -199,7 +206,6 @@ fun TelaCrudPlaylist(navController: NavController) {
                                     )
                                 )
                             } else {
-                                // UPDATE
                                 viewModel.updatePlaylist(
                                     playlistEditando!!.copy(
                                         nome = nomePlaylist,
@@ -255,7 +261,6 @@ fun PlaylistCardItem(
                 .clip(RoundedCornerShape(12.dp))
                 .clickable { onClick() }
         ) {
-            // Botão de menu com área maior
             Box(
                 modifier = Modifier
                     .align(Alignment.TopEnd)
@@ -266,8 +271,8 @@ fun PlaylistCardItem(
                     modifier = Modifier.size(40.dp)
                 ) {
                     Icon(
-                        Icons.Default.MoreVert,
-                        contentDescription = "Opções",
+                        imageVector = Icons.Default.MoreVert,
+                        contentDescription = "Mais opções",
                         tint = Color.White,
                         modifier = Modifier.size(28.dp)
                     )
@@ -281,7 +286,11 @@ fun PlaylistCardItem(
                     DropdownMenuItem(
                         text = { 
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                Icon(Icons.Default.Add, contentDescription = null, tint = SpotifyPrimary)
+                                Icon(
+                                    imageVector = Icons.Default.Add,
+                                    contentDescription = "Adicionar Músicas",
+                                    tint = SpotifyPrimary
+                                )
                                 Spacer(modifier = Modifier.width(8.dp))
                                 Text("Adicionar Músicas", color = SpotifyTextPrimary)
                             }
@@ -291,11 +300,15 @@ fun PlaylistCardItem(
                             onClick()
                         }
                     )
-                    Divider(color = SpotifyTextSecondary.copy(alpha = 0.2f))
+                    HorizontalDivider(color = SpotifyTextSecondary.copy(alpha = 0.2f))
                     DropdownMenuItem(
                         text = { 
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                Icon(Icons.Default.Edit, contentDescription = null, tint = SpotifyPrimary)
+                                Icon(
+                                    imageVector = Icons.Default.Edit,
+                                    contentDescription = "Editar",
+                                    tint = SpotifyPrimary
+                                )
                                 Spacer(modifier = Modifier.width(8.dp))
                                 Text("Editar", color = SpotifyTextPrimary)
                             }
@@ -308,7 +321,11 @@ fun PlaylistCardItem(
                     DropdownMenuItem(
                         text = { 
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                Icon(Icons.Default.Delete, contentDescription = null, tint = Color.Red)
+                                Icon(
+                                    imageVector = Icons.Default.Delete,
+                                    contentDescription = "Excluir",
+                                    tint = Color.Red
+                                )
                                 Spacer(modifier = Modifier.width(8.dp))
                                 Text("Excluir", color = Color.Red)
                             }

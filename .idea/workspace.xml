@@ -9,11 +9,11 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0cb6a2fb-526f-43dc-aa97-ff737a0d541e" name="Changes" comment="Feat: Add imagem na tela search">
+    <list default="true" id="0cb6a2fb-526f-43dc-aa97-ff737a0d541e" name="Changes" comment="feat: melhorias no crud da playlist">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/SharedComponents.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/SharedComponents.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/TelaBiblioteca.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/TelaBiblioteca.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/TelaCriar.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/TelaCriar.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/screens/TelaCrudMusica.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/screens/TelaCrudMusica.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/screens/TelaCrudPlaylist.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/screens/TelaCrudPlaylist.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/screens/TelaDetalhesPlaylist.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/screens/TelaDetalhesPlaylist.kt" afterDir="false" />
@@ -251,7 +251,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758198733001</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="feat: melhorias no crud da playlist">
+      <option name="closed" value="true" />
+      <created>1760406495573</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1760406495573</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -271,6 +279,7 @@
     <MESSAGE value="Feat: Adição da tela criar" />
     <MESSAGE value="Feat: Add navegação" />
     <MESSAGE value="Feat: Add imagem na tela search" />
-    <option name="LAST_COMMIT_MESSAGE" value="Feat: Add imagem na tela search" />
+    <MESSAGE value="feat: melhorias no crud da playlist" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: melhorias no crud da playlist" />
   </component>
 </project>

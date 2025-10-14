@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+    
+    <!-- Background gradient -->
+    <path
+        android:pathData="M0,0h200v200h-200z">
+        <aapt:attr name="android:fillColor" xmlns:aapt="http://schemas.android.com/aapt">
+            <gradient
+                android:startX="0"
+                android:startY="0"
+                android:endX="200"
+                android:endY="200"
+                android:type="linear">
+                <item android:color="#8B4513" android:offset="0.0" />
+                <item android:color="#D2691E" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    
+    <!-- Coffee cup -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M70,80 Q70,75 75,75 L125,75 Q130,75 130,80 L130,140 Q130,145 125,145 L75,145 Q70,145 70,140 Z" />
+    
+    <!-- Coffee -->
+    <path
+        android:fillColor="#8B4513"
+        android:pathData="M75,80 L125,80 L125,135 Q125,140 120,140 L80,140 Q75,140 75,135 Z" />
+    
+    <!-- Cup handle -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:strokeWidth="3"
+        android:pathData="M130,90 Q140,90 140,100 Q140,110 130,110" />
+    
+    <!-- Saucer -->
+    <ellipse
+        android:fillColor="#E0E0E0"
+        android:pathData="M60,145 A40,5 0 1,1 140,145 A40,5 0 1,1 60,145 Z" />
+    
+    <!-- Steam -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:strokeWidth="2"
+        android:pathData="M85,70 Q87,65 85,60 Q83,55 85,50" />
+    
+    <path
+        android:fillColor="#FFFFFF"
+        android:strokeWidth="2"
+        android:pathData="M100,70 Q102,65 100,60 Q98,55 100,50" />
+    
+    <path
+        android:fillColor="#FFFFFF"
+        android:strokeWidth="2"
+        android:pathData="M115,70 Q117,65 115,60 Q113,55 115,50" />
+</vector>

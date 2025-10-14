@@ -48,7 +48,11 @@ fun TelaCrudMusica(navController: NavController? = null) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 IconButton(onClick = { navController?.navigateUp() }) {
-                    Icon(Icons.Default.ArrowBack, contentDescription = "Voltar", tint = SpotifyTextPrimary)
+                    Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "Voltar",
+                            tint = SpotifyTextPrimary
+                        )
                 }
                 Text(
                     text = "Gerenciar Músicas",
@@ -140,11 +144,19 @@ fun TelaCrudMusica(navController: NavController? = null) {
                                     artistaMusica = musica.artista
                                     showDialog = true
                                 }) {
-                                    Icon(Icons.Default.Edit, contentDescription = "Editar", tint = SpotifyPrimary)
+                                    Icon(
+                                    imageVector = Icons.Default.Edit,
+                                    contentDescription = "Editar",
+                                    tint = SpotifyPrimary
+                                )
                                 }
                                 
                                 IconButton(onClick = { viewModel.deleteMusica(musica) }) {
-                                    Icon(Icons.Default.Delete, contentDescription = "Deletar", tint = SpotifyError)
+                                    Icon(
+                                    imageVector = Icons.Default.Delete,
+                                    contentDescription = "Excluir",
+                                    tint = SpotifyError
+                                )
                                 }
                             }
                         }
@@ -192,7 +204,6 @@ fun TelaCrudMusica(navController: NavController? = null) {
                     onClick = {
                         if (nomeMusica.isNotBlank() && artistaMusica.isNotBlank()) {
                             if (musicaEditando == null) {
-                                // CREATE
                                 viewModel.insertMusica(
                                     Musica(
                                         titulo = nomeMusica,
@@ -202,7 +213,6 @@ fun TelaCrudMusica(navController: NavController? = null) {
                                     )
                                 )
                             } else {
-                                // UPDATE
                                 viewModel.updateMusica(
                                     musicaEditando!!.copy(
                                         titulo = nomeMusica,

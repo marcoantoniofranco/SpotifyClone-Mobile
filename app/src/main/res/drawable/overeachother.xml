@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+    
+    <!-- Dark background -->
+    <path
+        android:fillColor="#1A1A1A"
+        android:pathData="M0,0h200v200h-200z" />
+    
+    <!-- Abstract geometric design representing Linkin Park's style -->
+    <path
+        android:fillColor="#FF0000"
+        android:pathData="M50,50 L150,50 L150,70 L50,70 Z" />
+    
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M70,80 L130,80 L130,100 L70,100 Z" />
+    
+    <path
+        android:fillColor="#FF0000"
+        android:pathData="M60,110 L140,110 L140,130 L60,130 Z" />
+    
+    <!-- Connecting lines -->
+    <path
+        android:fillColor="#808080"
+        android:strokeWidth="2"
+        android:pathData="M100,50 L100,130" />
+    
+    <path
+        android:fillColor="#808080"
+        android:strokeWidth="2"
+        android:pathData="M50,90 L150,90" />
+    
+    <!-- LP symbol inspired design -->
+    <circle
+        android:fillColor="#FFFFFF"
+        android:pathData="M85,150 A15,15 0 1,1 115,150 A15,15 0 1,1 85,150 Z" />
+    
+    <path
+        android:fillColor="#1A1A1A"
+        android:pathData="M95,145 L95,155 L105,155 L105,150 L100,150 L100,145 Z" />
+    
+    <!-- Sound waves -->
+    <path
+        android:fillColor="#FF0000"
+        android:strokeWidth="1"
+        android:pathData="M30,100 Q40,90 50,100 Q60,110 70,100" />
+    
+    <path
+        android:fillColor="#FF0000"
+        android:strokeWidth="1"
+        android:pathData="M130,100 Q140,90 150,100 Q160,110 170,100" />
+</vector>

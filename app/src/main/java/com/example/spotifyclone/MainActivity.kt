@@ -14,7 +14,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.NavHostController
-// Imports das telas de CRUD
 import com.example.spotifyclone.screens.TelaCrudMusica
 import com.example.spotifyclone.screens.TelaCrudPlaylist
 import com.example.spotifyclone.screens.TelaDetalhesPlaylist

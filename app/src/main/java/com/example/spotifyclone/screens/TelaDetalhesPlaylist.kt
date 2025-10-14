@@ -28,10 +28,9 @@ import com.example.spotifyclone.models.Playlist
 import com.example.spotifyclone.ui.theme.*
 import com.example.spotifyclone.viewmodel.PlaylistMusicaViewModel
 
-// Emojis e cores para as playlists
 val playlistEmojisDetalhes = listOf("🎵", "🎶", "🎤", "🎧", "🎸", "🎹", "🥁", "🎺", "🎷", "🎻")
 val playlistGradientsDetalhes = listOf(
-    listOf(Color(0xFFB794F6), Color(0xFFD4BBFF)),  // Roxo claro
+    listOf(Color(0xFFB794F6), Color(0xFFD4BBFF)),
     listOf(Color(0xFFFF6B6B), Color(0xFFFF8E8E)),
     listOf(Color(0xFF4ECDC4), Color(0xFF44A08D)),
     listOf(Color(0xFF667eea), Color(0xFF764ba2)),

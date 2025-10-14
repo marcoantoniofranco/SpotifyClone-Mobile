@@ -187,7 +187,6 @@ fun CabecalhoPersonalizavel(
     }
 }
 
-// Funções de conveniência para manter compatibilidade - MELHORADAS
 @Composable
 fun CabecalhoComPerfil() {
     CabecalhoPersonalizavel(

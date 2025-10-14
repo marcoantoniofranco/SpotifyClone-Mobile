@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+    
+    <!-- Colorful background -->
+    <path
+        android:pathData="M0,0h200v200h-200z">
+        <aapt:attr name="android:fillColor" xmlns:aapt="http://schemas.android.com/aapt">
+            <gradient
+                android:startX="0"
+                android:startY="0"
+                android:endX="200"
+                android:endY="200"
+                android:type="linear">
+                <item android:color="#FF1493" android:offset="0.0" />
+                <item android:color="#00BFFF" android:offset="0.5" />
+                <item android:color="#FFD700" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    
+    <!-- Pop art style elements -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M50,50 L90,50 L90,90 L50,90 Z" />
+    
+    <path
+        android:fillColor="#FF69B4"
+        android:pathData="M110,50 L150,50 L150,90 L110,90 Z" />
+    
+    <path
+        android:fillColor="#00FF00"
+        android:pathData="M50,110 L90,110 L90,150 L50,150 Z" />
+    
+    <path
+        android:fillColor="#FF4500"
+        android:pathData="M110,110 L150,110 L150,150 L110,150 Z" />
+    
+    <!-- Musical symbols -->
+    <path
+        android:fillColor="#000000"
+        android:pathData="M70,70 A10,10 0 1,1 70,70 Z" />
+    
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M130,70 A10,10 0 1,1 130,70 Z" />
+    
+    <path
+        android:fillColor="#000000"
+        android:pathData="M70,130 A10,10 0 1,1 70,130 Z" />
+    
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M130,130 A10,10 0 1,1 130,130 Z" />
+    
+    <!-- Stars -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M30,30 L32,36 L38,36 L33,40 L35,46 L30,42 L25,46 L27,40 L22,36 L28,36 Z" />
+    
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M170,170 L172,176 L178,176 L173,180 L175,186 L170,182 L165,186 L167,180 L162,176 L168,176 Z" />
+</vector>
