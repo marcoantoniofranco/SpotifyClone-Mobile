@@ -3,9 +3,8 @@ package com.example.spotifyclone.screens
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
@@ -16,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -24,13 +24,15 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.spotifyclone.models.Playlist
+import com.example.spotifyclone.viewmodel.PlaylistViewModel
+import com.example.spotifyclone.viewmodel.PlaylistViewModelFactory
+import com.example.spotifyclone.repository.PlaylistRepository
+import com.example.spotifyclone.database.SpotifyDatabase
 import com.example.spotifyclone.ui.theme.*
-import com.example.spotifyclone.viewmodel.PlaylistMusicaViewModel
 
-// Emojis e cores para as playlists
 val playlistEmojis = listOf("🎵", "🎶", "🎤", "🎧", "🎸", "🎹", "🥁", "🎺", "🎷", "🎻")
-val playlistGradients = listOf(
-    listOf(Color(0xFF1DB954), Color(0xFF1ED760)),
+val playlistColors = listOf(
+    listOf(Color(0xFFB794F6), Color(0xFFD4BBFF)),  // Roxo claro
     listOf(Color(0xFFFF6B6B), Color(0xFFFF8E8E)),
     listOf(Color(0xFF4ECDC4), Color(0xFF44A08D)),
     listOf(Color(0xFF667eea), Color(0xFF764ba2)),
@@ -40,10 +42,15 @@ val playlistGradients = listOf(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TelaCrudPlaylist(navController: NavController) {
-    val viewModel: PlaylistMusicaViewModel = viewModel()
-    val playlistsWithCount by viewModel.playlistsWithCount.collectAsState()
+    val context = LocalContext.current
+    val database = SpotifyDatabase.getDatabase(context)
+    val repository = PlaylistRepository(database.playlistDao())
+    val viewModel: PlaylistViewModel = viewModel(factory = PlaylistViewModelFactory(repository))
+    
+    val playlists by viewModel.playlists.collectAsState()
     
     var showDialog by remember { mutableStateOf(false) }
+    var playlistEditando by remember { mutableStateOf<Playlist?>(null) }
     var nomePlaylist by remember { mutableStateOf("") }
     var descricaoPlaylist by remember { mutableStateOf("") }
     
@@ -70,7 +77,7 @@ fun TelaCrudPlaylist(navController: NavController) {
                     )
                 }
                 Text(
-                    text = "${playlistsWithCount.size} playlist${if (playlistsWithCount.size != 1) "s" else ""}",
+                    text = "${playlists.size} playlist${if (playlists.size != 1) "s" else ""}",
                     fontSize = 14.sp,
                     color = SpotifyTextSecondary
                 )
@@ -78,15 +85,19 @@ fun TelaCrudPlaylist(navController: NavController) {
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { showDialog = true },
+                onClick = { 
+                    playlistEditando = null
+                    nomePlaylist = ""
+                    descricaoPlaylist = ""
+                    showDialog = true 
+                },
                 containerColor = SpotifyPrimary
             ) {
-                Icon(Icons.Default.Add, contentDescription = "Adicionar")
+                Icon(Icons.Default.Add, contentDescription = "Adicionar", tint = Color.White)
             }
         }
     ) { paddingValues ->
-        if (playlistsWithCount.isEmpty()) {
-            // Tela vazia
+        if (playlists.isEmpty()) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -113,34 +124,39 @@ fun TelaCrudPlaylist(navController: NavController) {
                 )
             }
         } else {
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp),
-                contentPadding = PaddingValues(16.dp),
-                modifier = Modifier.padding(paddingValues)
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues)
+                    .padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                items(playlistsWithCount) { playlistWithCount ->
-                    val emojiIndex = playlistWithCount.playlist.id.toInt() % playlistEmojis.size
-                    val gradientIndex = playlistWithCount.playlist.id.toInt() % playlistGradients.size
+                items(playlists) { playlist ->
+                    val emojiIndex = playlist.id % playlistEmojis.size
+                    val colorIndex = playlist.id % playlistColors.size
                     
-                    PlaylistCardSimple(
-                        playlistWithCount = playlistWithCount,
+                    PlaylistCardItem(
+                        playlist = playlist,
                         emoji = playlistEmojis[emojiIndex],
-                        gradient = playlistGradients[gradientIndex],
-                        onDelete = { viewModel.deletePlaylist(it) },
-                        onClick = { navController.navigate("playlist_details/${it.id}") }
+                        gradient = playlistColors[colorIndex],
+                        onEdit = {
+                            playlistEditando = playlist
+                            nomePlaylist = playlist.nome
+                            descricaoPlaylist = playlist.descricao
+                            showDialog = true
+                        },
+                        onDelete = { viewModel.deletePlaylist(playlist) },
+                        onClick = { navController.navigate("playlist_details/${playlist.id}") }
                     )
                 }
             }
         }
     }
     
-    // Dialog para adicionar playlist
     if (showDialog) {
         AlertDialog(
             onDismissRequest = { showDialog = false },
-            title = { Text("Nova Playlist", color = SpotifyTextPrimary) },
+            title = { Text(if (playlistEditando == null) "Nova Playlist" else "Editar Playlist", color = SpotifyTextPrimary) },
             text = {
                 Column {
                     OutlinedTextField(
@@ -174,19 +190,28 @@ fun TelaCrudPlaylist(navController: NavController) {
                 TextButton(
                     onClick = {
                         if (nomePlaylist.isNotBlank()) {
-                            viewModel.insertPlaylist(
-                                Playlist(
-                                    nome = nomePlaylist,
-                                    descricao = descricaoPlaylist
+                            if (playlistEditando == null) {
+                                // CREATE
+                                viewModel.insertPlaylist(
+                                    Playlist(
+                                        nome = nomePlaylist,
+                                        descricao = descricaoPlaylist
+                                    )
                                 )
-                            )
-                            nomePlaylist = ""
-                            descricaoPlaylist = ""
+                            } else {
+                                // UPDATE
+                                viewModel.updatePlaylist(
+                                    playlistEditando!!.copy(
+                                        nome = nomePlaylist,
+                                        descricao = descricaoPlaylist
+                                    )
+                                )
+                            }
                             showDialog = false
                         }
                     }
                 ) {
-                    Text("Criar", color = SpotifyPrimary)
+                    Text(if (playlistEditando == null) "Criar" else "Salvar", color = SpotifyPrimary)
                 }
             },
             dismissButton = {
@@ -200,20 +225,20 @@ fun TelaCrudPlaylist(navController: NavController) {
 }
 
 @Composable
-fun PlaylistCardSimple(
-    playlistWithCount: com.example.spotifyclone.viewmodel.PlaylistWithCount,
+fun PlaylistCardItem(
+    playlist: Playlist,
     emoji: String,
     gradient: List<Color>,
-    onDelete: (Playlist) -> Unit,
-    onClick: (Playlist) -> Unit
+    onEdit: () -> Unit,
+    onDelete: () -> Unit,
+    onClick: () -> Unit
 ) {
     var showMenu by remember { mutableStateOf(false) }
     
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(180.dp)
-            .clickable { onClick(playlistWithCount.playlist) },
+            .height(120.dp),
         colors = CardDefaults.cardColors(containerColor = Color.Transparent),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
@@ -228,15 +253,24 @@ fun PlaylistCardSimple(
                     )
                 )
                 .clip(RoundedCornerShape(12.dp))
+                .clickable { onClick() }
         ) {
-            // Menu de opções
+            // Botão de menu com área maior
             Box(
                 modifier = Modifier
                     .align(Alignment.TopEnd)
-                    .padding(8.dp)
+                    .padding(4.dp)
             ) {
-                IconButton(onClick = { showMenu = true }, modifier = Modifier.size(24.dp)) {
-                    Icon(Icons.Default.MoreVert, contentDescription = "Opções", tint = Color.White)
+                IconButton(
+                    onClick = { showMenu = true },
+                    modifier = Modifier.size(40.dp)
+                ) {
+                    Icon(
+                        Icons.Default.MoreVert,
+                        contentDescription = "Opções",
+                        tint = Color.White,
+                        modifier = Modifier.size(28.dp)
+                    )
                 }
                 
                 DropdownMenu(
@@ -247,6 +281,33 @@ fun PlaylistCardSimple(
                     DropdownMenuItem(
                         text = { 
                             Row(verticalAlignment = Alignment.CenterVertically) {
+                                Icon(Icons.Default.Add, contentDescription = null, tint = SpotifyPrimary)
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text("Adicionar Músicas", color = SpotifyTextPrimary)
+                            }
+                        },
+                        onClick = {
+                            showMenu = false
+                            onClick()
+                        }
+                    )
+                    Divider(color = SpotifyTextSecondary.copy(alpha = 0.2f))
+                    DropdownMenuItem(
+                        text = { 
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Icon(Icons.Default.Edit, contentDescription = null, tint = SpotifyPrimary)
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text("Editar", color = SpotifyTextPrimary)
+                            }
+                        },
+                        onClick = {
+                            showMenu = false
+                            onEdit()
+                        }
+                    )
+                    DropdownMenuItem(
+                        text = { 
+                            Row(verticalAlignment = Alignment.CenterVertically) {
                                 Icon(Icons.Default.Delete, contentDescription = null, tint = Color.Red)
                                 Spacer(modifier = Modifier.width(8.dp))
                                 Text("Excluir", color = Color.Red)
@@ -254,51 +315,39 @@ fun PlaylistCardSimple(
                         },
                         onClick = {
                             showMenu = false
-                            onDelete(playlistWithCount.playlist)
+                            onDelete()
                         }
                     )
                 }
             }
             
-            // Conteúdo do card
-            Column(
+            Row(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(16.dp),
-                verticalArrangement = Arrangement.SpaceBetween
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(text = emoji, fontSize = 48.sp, textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth())
+                Text(text = emoji, fontSize = 40.sp)
+                
+                Spacer(modifier = Modifier.width(16.dp))
                 
                 Column {
                     Text(
-                        text = playlistWithCount.playlist.nome,
-                        fontSize = 16.sp,
+                        text = playlist.nome,
+                        fontSize = 18.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color.White,
                         maxLines = 2,
                         overflow = TextOverflow.Ellipsis
                     )
                     
-                    if (playlistWithCount.playlist.descricao.isNotBlank()) {
+                    if (playlist.descricao.isNotBlank()) {
                         Text(
-                            text = playlistWithCount.playlist.descricao,
-                            fontSize = 12.sp,
+                            text = playlist.descricao,
+                            fontSize = 14.sp,
                             color = Color.White.copy(alpha = 0.8f),
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis
-                        )
-                    }
-                    
-                    Spacer(modifier = Modifier.height(4.dp))
-                    
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(Icons.Default.PlayArrow, contentDescription = null, tint = Color.White.copy(alpha = 0.7f), modifier = Modifier.size(14.dp))
-                        Spacer(modifier = Modifier.width(4.dp))
-                        Text(
-                            text = if (playlistWithCount.musicCount == 0) "Vazia" 
-                                  else "${playlistWithCount.musicCount} música${if (playlistWithCount.musicCount > 1) "s" else ""}",
-                            fontSize = 11.sp,
-                            color = Color.White.copy(alpha = 0.7f)
                         )
                     }
                 }

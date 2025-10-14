@@ -14,6 +14,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.NavHostController
+// Imports das telas de CRUD
 import com.example.spotifyclone.screens.TelaCrudMusica
 import com.example.spotifyclone.screens.TelaCrudPlaylist
 import com.example.spotifyclone.screens.TelaDetalhesPlaylist
@@ -32,34 +33,31 @@ fun SpotifyCloneApp() {
     val navController = rememberNavController()
     
     SpotifyCloneTheme {
-        Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-            NavHost(
-                navController = navController,
-                startDestination = "home",
-                modifier = Modifier.padding(innerPadding)
-            ) {
-                composable("home") { 
-                    TelaHome(navController = navController) 
-                }
-                composable("search") { 
-                    TelaSearch(navController = navController) 
-                }
-                composable("biblioteca") { 
-                    TelaBiblioteca(navController = navController) 
-                }
-                composable("criar") { 
-                    TelaCriar(navController = navController) 
-                }
-                composable("crud_musica") {
-                    TelaCrudMusica(navController = navController)
-                }
-                composable("crud_playlist") {
-                    TelaCrudPlaylist(navController = navController)
-                }
-                composable("playlist_details/{playlistId}") { backStackEntry ->
-                    val playlistId = backStackEntry.arguments?.getString("playlistId")?.toLongOrNull() ?: 0L
-                    TelaDetalhesPlaylist(navController = navController, playlistId = playlistId)
-                }
+        NavHost(
+            navController = navController,
+            startDestination = "home"
+        ) {
+            composable("home") { 
+                TelaHome(navController = navController) 
+            }
+            composable("search") { 
+                TelaSearch(navController = navController) 
+            }
+            composable("biblioteca") { 
+                TelaBiblioteca(navController = navController) 
+            }
+            composable("criar") { 
+                TelaCriar(navController = navController) 
+            }
+            composable("crud_musica") {
+                TelaCrudMusica(navController = navController)
+            }
+            composable("crud_playlist") {
+                TelaCrudPlaylist(navController = navController)
+            }
+            composable("playlist_details/{playlistId}") { backStackEntry ->
+                val playlistId = backStackEntry.arguments?.getString("playlistId")?.toLongOrNull() ?: 0L
+                TelaDetalhesPlaylist(navController = navController, playlistId = playlistId)
             }
         }
     }

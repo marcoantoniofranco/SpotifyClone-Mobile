@@ -10,21 +10,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0cb6a2fb-526f-43dc-aa97-ff737a0d541e" name="Changes" comment="Feat: Add imagem na tela search">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/Db.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/Cards.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/Cards.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/DataModels.kt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/MainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/SharedComponents.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/SharedComponents.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/TelaBiblioteca.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/TelaBiblioteca.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/TelaCriar.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/TelaCriar.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/TelaHome.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/TelaHome.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/TelaSearch.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/TelaSearch.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/screens/TelaCrudMusica.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/screens/TelaCrudMusica.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/screens/TelaCrudPlaylist.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/screens/TelaCrudPlaylist.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/screens/TelaDetalhesPlaylist.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/screens/TelaDetalhesPlaylist.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/ui/theme/Color.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/ui/theme/Color.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/ui/theme/Theme.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/ui/theme/Theme.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/ui/theme/Type.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/spotifyclone/ui/theme/Type.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,7 +27,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=LocalEmulator, isTemplate=false, identifier=path=C:\Users\marco\.android\avd\Medium_Phone.avd)]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=LocalEmulator, isTemplate=false, identifier=path=C:\Users\marco\.android\avd\Medium_Phone_2.avd)]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />

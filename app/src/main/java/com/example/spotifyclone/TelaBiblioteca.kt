@@ -38,11 +38,8 @@ import android.widget.Toast
 import androidx.compose.ui.platform.LocalContext
 
 @Composable
-fun TelaBiblioteca(
-    navController: NavHostController? = null,
-) {
+fun TelaBiblioteca(navController: NavHostController? = null) {
     Scaffold(
-        modifier = Modifier,
         containerColor = SpotifyBackground, 
         bottomBar = {
             MenuInferior(
@@ -75,58 +72,28 @@ fun Opcoes(navController: NavHostController? = null){
             .fillMaxWidth(),
         horizontalArrangement = Arrangement.Start
     ){
-        Column {
-            Button(
-                onClick = { 
-                    try {
-                        Toast.makeText(context, "Filtro Playlists selecionado", Toast.LENGTH_SHORT).show()
-                    } catch (e: Exception) {
-                        // Evita crashes por problemas de contexto
-                    }
-                }
-            ){
-                Text("Playlists")
+        Button(
+            onClick = { 
+                Toast.makeText(context, "Filtro Playlists", Toast.LENGTH_SHORT).show()
             }
+        ){
+            Text("Playlists")
         }
         Spacer(modifier = Modifier.width(5.dp))
-        Column {
-            Button(
-                onClick = { 
-                    try {
-                        Toast.makeText(context, "Filtro Albuns selecionado", Toast.LENGTH_SHORT).show()
-                    } catch (e: Exception) {
-                        // Evita crashes por problemas de contexto
-                    }
-                }
-            ){
-                Text("Albuns")
+        Button(
+            onClick = { 
+                Toast.makeText(context, "Filtro Albuns", Toast.LENGTH_SHORT).show()
             }
+        ){
+            Text("Albuns")
         }
         Spacer(modifier = Modifier.width(5.dp))
-        Column {
-            Button(
-                onClick = { 
-                    try {
-                        Toast.makeText(context, "Filtro Artistas selecionado", Toast.LENGTH_SHORT).show()
-                    } catch (e: Exception) {
-                        // Evita crashes por problemas de contexto
-                    }
-                }
-            ){
-                Text("Artistas")
+        Button(
+            onClick = { 
+                Toast.makeText(context, "Filtro Artistas", Toast.LENGTH_SHORT).show()
             }
-        }
-        Spacer(modifier = Modifier.width(5.dp))
-        Column {
-            Button(
-                onClick = { 
-                    navController?.navigate("crud_playlist") {
-                        launchSingleTop = true
-                    }
-                }
-            ){
-                Text("Gerenciar")
-            }
+        ){
+            Text("Artistas")
         }
     }
 }
@@ -145,7 +112,7 @@ fun Recentes() {
                 imageVector = Icons.Default.ArrowDropDown,
                 contentDescription = "",
                 modifier = Modifier.size(40.dp),
-                tint = Color.Green
+                tint = SpotifyPrimary
             )}
         Spacer(modifier = Modifier.width(5.dp))
 
@@ -158,7 +125,7 @@ fun Recentes() {
                 imageVector = Icons.Default.Menu,
                 contentDescription = "",
                 modifier = Modifier.size(40.dp),
-                tint = Color.Green
+                tint = SpotifyPrimary
             )}
 
     }

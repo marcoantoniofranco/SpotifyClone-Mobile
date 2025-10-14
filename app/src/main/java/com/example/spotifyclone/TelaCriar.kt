@@ -2,27 +2,13 @@ package com.example.spotifyclone
 
 import android.widget.Toast
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material3.Button
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,17 +16,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.spotifyclone.ui.theme.*
 
 @Composable
-fun TelaCriar(
-    navController: NavHostController,
-    modifier: Modifier = Modifier
-) {
+fun TelaCriar(navController: NavHostController, modifier: Modifier = Modifier) {
     val context = LocalContext.current
     
     Scaffold(
@@ -49,9 +31,7 @@ fun TelaCriar(
         bottomBar = {
             MenuInferior(
                 telaAtual = "criar",
-                onNavigate = { destino -> 
-                    navController?.navigate(destino)
-                }
+                onNavigate = { destino -> navController.navigate(destino) }
             )
         }
     ) { paddingValues ->
@@ -66,66 +46,69 @@ fun TelaCriar(
             Spacer(modifier = Modifier.height(24.dp))
             
             Text(
-                text = "Suas músicas estão com saudade",
-                color = Color.White,
-                fontSize = 24.sp,
+                text = "Criar",
+                color = SpotifyTextPrimary,
+                fontSize = 28.sp,
                 fontWeight = FontWeight.Bold
             )
             
             Spacer(modifier = Modifier.height(32.dp))
             
-            OpcoesCrear(navController)
-            
-            Spacer(modifier = Modifier.height(24.dp))
-            
-            // Botão para demonstrar Toast
-            Button(
-                onClick = {
-                    Toast.makeText(context, "Playlist criada com sucesso!", Toast.LENGTH_SHORT).show()
-                },
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text("Criar Nova Playlist")
-            }
+            OpcoesCrear(navController, context)
         }
     }
 }
 
 @Composable
-fun OpcoesCrear(navController: NavHostController) {
+fun OpcoesCrear(navController: NavHostController, context: android.content.Context) {
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        OpcaoCriar(
-            icone = Icons.Default.Add,
-            titulo = "Playlist",
-            subtitulo = "Crie uma playlist com músicas ou episódios",
-            corIcone = Color.White
-        )
-        
-        OpcaoCriar(
-            icone = Icons.Default.Person,
-            titulo = "Playlist colaborativa",
-            subtitulo = "Crie uma playlist com a galera",
-            corIcone = Color.White
-        )
-        
-        OpcaoCriar(
-            icone = Icons.Default.PlayArrow,
-            titulo = "Match",
-            subtitulo = "Junte os gostos musicais da sua galera em uma playlist",
-            corIcone = Color.White
-        )
-        
         Surface(
             modifier = Modifier
                 .fillMaxWidth()
-                .clickable { navController.navigate("crud_musica") },
+                .clickable { 
+                    navController.navigate("crud_playlist")
+                },
             color = SpotifyCardBackground,
             shape = RoundedCornerShape(8.dp)
         ) {
             OpcaoCriar(
                 icone = Icons.Default.Add,
+                titulo = "Criar Playlist",
+                subtitulo = "Crie e gerencie suas playlists",
+                corIcone = SpotifyPrimary
+            )
+        }
+        
+        Surface(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { 
+                    Toast.makeText(context, "Em breve!", Toast.LENGTH_SHORT).show()
+                },
+            color = SpotifyCardBackground,
+            shape = RoundedCornerShape(8.dp)
+        ) {
+            OpcaoCriar(
+                icone = Icons.Default.Person,
+                titulo = "Playlist Colaborativa",
+                subtitulo = "Crie uma playlist com a galera",
+                corIcone = Color.White
+            )
+        }
+        
+        Surface(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { 
+                    navController.navigate("crud_musica")
+                },
+            color = SpotifyCardBackground,
+            shape = RoundedCornerShape(8.dp)
+        ) {
+            OpcaoCriar(
+                icone = Icons.Default.PlayArrow,
                 titulo = "Gerenciar Músicas",
                 subtitulo = "Adicionar, editar ou remover músicas",
                 corIcone = SpotifyPrimary
@@ -145,11 +128,11 @@ fun OpcaoCriar(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp)
+            .padding(16.dp)
     ) {
         Surface(
             modifier = Modifier.size(60.dp),
-            color = SpotifyCardBackground,
+            color = SpotifyBackground,
             shape = RoundedCornerShape(8.dp)
         ) {
             Box(contentAlignment = Alignment.Center) {
@@ -178,11 +161,4 @@ fun OpcaoCriar(
             )
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewTelaCriar() {
-    // For preview, we can't pass a real NavController, so we'll create a mock or skip the preview
-    // TelaCriar() - This would cause the error since navController is required
 }

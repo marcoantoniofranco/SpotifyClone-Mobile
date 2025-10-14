@@ -4,15 +4,14 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -35,6 +34,7 @@ fun TelaCrudMusica(navController: NavController? = null) {
     val musicas by viewModel.musicas.collectAsState()
     
     var showDialog by remember { mutableStateOf(false) }
+    var musicaEditando by remember { mutableStateOf<Musica?>(null) }
     var nomeMusica by remember { mutableStateOf("") }
     var artistaMusica by remember { mutableStateOf("") }
     
@@ -61,48 +61,92 @@ fun TelaCrudMusica(navController: NavController? = null) {
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { showDialog = true },
+                onClick = { 
+                    musicaEditando = null
+                    nomeMusica = ""
+                    artistaMusica = ""
+                    showDialog = true 
+                },
                 containerColor = SpotifyPrimary
             ) {
                 Icon(Icons.Default.Add, contentDescription = "Adicionar")
             }
         }
     ) { paddingValues ->
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-                .padding(16.dp)
-        ) {
-            items(musicas) { musica ->
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 4.dp),
-                    colors = CardDefaults.cardColors(containerColor = SpotifyCardBackground)
-                ) {
-                    Row(
+        if (musicas.isEmpty()) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues)
+                    .padding(32.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Text(text = "🎵", fontSize = 64.sp)
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = "Nenhuma música ainda",
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Medium,
+                    color = SpotifyTextPrimary,
+                    textAlign = TextAlign.Center
+                )
+                Text(
+                    text = "Adicione músicas tocando no botão +",
+                    fontSize = 14.sp,
+                    color = SpotifyTextSecondary,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(top = 8.dp)
+                )
+            }
+        } else {
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues)
+                    .padding(16.dp)
+            ) {
+                items(musicas) { musica ->
+                    Card(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(16.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
+                            .padding(vertical = 4.dp),
+                        colors = CardDefaults.cardColors(containerColor = SpotifyCardBackground)
                     ) {
-                        Column {
-                            Text(
-                                text = musica.titulo,
-                                fontWeight = FontWeight.Bold,
-                                color = SpotifyTextPrimary
-                            )
-                            Text(
-                                text = musica.artista,
-                                fontSize = 14.sp,
-                                color = SpotifyTextSecondary
-                            )
-                        }
-                        
-                        IconButton(onClick = { viewModel.deleteMusica(musica) }) {
-                            Icon(Icons.Default.Delete, contentDescription = "Deletar", tint = SpotifyError)
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(16.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Column(modifier = Modifier.weight(1f)) {
+                                Text(
+                                    text = musica.titulo,
+                                    fontWeight = FontWeight.Bold,
+                                    color = SpotifyTextPrimary
+                                )
+                                Text(
+                                    text = musica.artista,
+                                    fontSize = 14.sp,
+                                    color = SpotifyTextSecondary
+                                )
+                            }
+                            
+                            Row {
+                                IconButton(onClick = { 
+                                    musicaEditando = musica
+                                    nomeMusica = musica.titulo
+                                    artistaMusica = musica.artista
+                                    showDialog = true
+                                }) {
+                                    Icon(Icons.Default.Edit, contentDescription = "Editar", tint = SpotifyPrimary)
+                                }
+                                
+                                IconButton(onClick = { viewModel.deleteMusica(musica) }) {
+                                    Icon(Icons.Default.Delete, contentDescription = "Deletar", tint = SpotifyError)
+                                }
+                            }
                         }
                     }
                 }
@@ -110,11 +154,10 @@ fun TelaCrudMusica(navController: NavController? = null) {
         }
     }
     
-    // Dialog para adicionar música
     if (showDialog) {
         AlertDialog(
             onDismissRequest = { showDialog = false },
-            title = { Text("Adicionar Música", color = SpotifyTextPrimary) },
+            title = { Text(if (musicaEditando == null) "Adicionar Música" else "Editar Música", color = SpotifyTextPrimary) },
             text = {
                 Column {
                     OutlinedTextField(
@@ -148,21 +191,30 @@ fun TelaCrudMusica(navController: NavController? = null) {
                 TextButton(
                     onClick = {
                         if (nomeMusica.isNotBlank() && artistaMusica.isNotBlank()) {
-                            viewModel.insertMusica(
-                                Musica(
-                                    titulo = nomeMusica,
-                                    artista = artistaMusica,
-                                    album = "",
-                                    duracao = ""
+                            if (musicaEditando == null) {
+                                // CREATE
+                                viewModel.insertMusica(
+                                    Musica(
+                                        titulo = nomeMusica,
+                                        artista = artistaMusica,
+                                        album = "",
+                                        duracao = ""
+                                    )
                                 )
-                            )
-                            nomeMusica = ""
-                            artistaMusica = ""
+                            } else {
+                                // UPDATE
+                                viewModel.updateMusica(
+                                    musicaEditando!!.copy(
+                                        titulo = nomeMusica,
+                                        artista = artistaMusica
+                                    )
+                                )
+                            }
                             showDialog = false
                         }
                     }
                 ) {
-                    Text("Adicionar", color = SpotifyPrimary)
+                    Text(if (musicaEditando == null) "Adicionar" else "Salvar", color = SpotifyPrimary)
                 }
             },
             dismissButton = {
